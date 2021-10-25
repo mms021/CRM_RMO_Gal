@@ -1,0 +1,358 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Dashbord </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+
+
+{% block page_styles %}
+<link rel="stylesheet" href="{% static "projects/assets/vendor_components/morris.js/morris.css"%}">	
+         
+<style>
+
+#bly {
+  width: 12px;
+  height: 12px;
+  background: #5A8DEE;
+}
+#green {
+  width: 12px;
+  height: 12px;
+  background: #39DA8A;
+}
+
+</style>
+	
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+<li class="header">Проекты</li>  
+		  
+        <li class="treeview">
+          <a href="#">
+            <i class="ti-palette"></i>
+            <span>Проекты</span>
+            <span class="pull-right-container">
+              <i class="fa fa-caret-down pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+
+			{% for itm in projects %}
+            <li><a href="#{{ itm.title }}"><i class="fa fa-circle-thin"></i>{{ itm.title }}</a></li>
+			{% endfor %}
+          </ul>
+</li>
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title">Общая информация по проектам </h4>
+      <ul class="box-controls pull-right">
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+          <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="box">
+                  <div class="box-header">
+                    <h4 class="box-title">Все проекты</h4>
+                  </div>
+                  <div class="box-body text-center">
+                    <canvas id="chartStacked2" height="450px" ></canvas>
+                  </div>
+                  <div class="box-body">
+                    <table >
+                      <tr>
+                        <td > <div id="bly"></div> </td>  <td>&#160; Бюджет проекта  &#160;&#160;</td> <td> <div id="green"></div></td> <td> &#160; Бюджет затрат  </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+                <!-- /.box -->			
+            </div> 
+            <div class="col-lg-6 col-12">
+              <div class="box">
+                <div class="box-header">
+                  <h4 class="box-title">Краткая информация</h4>
+                </div>
+
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="morrisDonut2" style="height: 300px;"></div>
+                  </div>
+              <!--   <div class="box-body text-center">
+                  <canvas id="chartPie" height="150"></canvas>
+                </div>
+                /.box-body -->
+              </div>
+              <!-- /.box -->
+              <div class="box">
+                  <div class="box-header">
+                    <h4 class="box-title">Оплата</h4>
+                  </div>
+                 
+                  
+                  <div class="box-body chart-responsive">
+                      <div class="chart" id="morrisLine2" style="height: 300px;"></div>
+                  </div>
+                <!--   /.box-body -->
+              </div>	
+            </div>
+            	
+      </div>
+</div>
+</div>
+
+{% for ipp in projects %}
+<div class="box">
+        <div class="box box-slided-up">
+          <div class="box-header with-border">
+            <h4 class="box-title"><a href="{% url 'projects:passs' pk=ipp.id %}"  name="{{ ipp.title }}">{{ ipp.title }}</a>
+               {%  for hh in prob %} 
+                {% if hh.projects.title == ipp.title %}
+
+              <span class="label label-danger">Проблемы</span>
+                {% endif %}
+                {% endfor %}
+                </h4>
+            <ul class="box-controls pull-right">
+              <li><a class="box-btn-slide" href="#"></a></li>
+            </ul>
+          </div>
+
+          <div class="box-body">
+              <div class="row">
+              <div class="col-xl-6 col-12">	
+              
+    
+                  <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <tbody>
+                      <tr>
+                        <th>Бюжет проекта:</th>
+                        <td>{{ ipp.prisepr }} ₽</td>
+                      </tr>       
+                      <tr>
+                          <th>Плановый процент завершения:</th>
+                          <td>{{ ipp.id|prozentplan }} %</td>
+                      </tr>
+                      <tr>
+                          <th>Процент завершения:</th>
+                          <td>{{ ipp.id|prozentpo }} %</td>
+                      </tr>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="col-xl-6 col-12">
+                  <div class="table-responsive">
+                      <table class="table table-hover mb-0">
+                        <tbody>
+                        <tr>
+                            <th> Бюжет проекта:</th>
+                            <td> {{ ipp.id|zadathachec }} ₽</td>
+                        </tr>
+                        <tr>
+                            <th> Бюджет затрат: </th>
+                            <td> {{ ipp.id|plandeneg }} ₽</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-12 text-center">
+                    <input type="text" class="knob" value="{{ ipp.id|prozentplan }}" data-skin="tron" data-thickness="0.1" data-width="90" data-height="90" data-fgColor="#00CFDD" data-readonly="true">
+  
+                    <div class="knob-label"> Плановый процент завершения</div>
+                </div>
+            
+                <div class="col-xl-6 col-12 text-center">
+                    <input type="text" class="knob" value="{{ ipp.id|prozentpo }}" data-skin="tron" data-thickness="0.1" data-width="90" data-height="90" data-fgColor="#01DF74" data-readonly="true">
+  
+                    <div class="knob-label"> Процент завершения</div>
+                </div>
+                
+            </div>
+            
+          </div>
+        
+        </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+  
+ 
+	<!-- jQuery Knob -->
+	<script src="{% static "projects/assets/vendor_components/jquery-knob/js/jquery.knob.js"%}"></script>
+	
+	<!-- Sparkline -->
+	<script src="{% static "projects/assets/vendor_components/jquery-sparkline/dist/jquery.sparkline.min.js"%}"></script>
+	
+	
+  <!-- Materiel Admin for Chart purposes -->
+  
+  <script src="{% static "projects/assets/vendor_components/chart.js-master/Chart.bundle.js"%}"></script>
+	<script src="{% static "projects/assets/vendor_components/chart.js-master/utils.js"%}"></script>
+
+  <!-- SlimScroll -->
+	<script src="{% static "projects/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"%}"></script>
+
+
+  <!-- Morris.js charts -->
+	<script src="{% static "projects/assets/vendor_components/raphael/raphael.min.js"%}"></script>
+	<script src="{% static "projects/assets/vendor_components/morris.js/morris.min.js"%}"></script>
+
+  
+<!-- Materiel Admin for inline Chart purposes -->
+  <script src="{% static "projects/js/pages/widget-inline-charts.js"%}"></script>
+
+   <!-- Materiel Admin for Morris Chart purposes -->
+    
+
+
+
+  <script>
+  
+$(function(){
+  'use strict';
+  new Morris.Donut({
+    element: 'morrisDonut2',
+    data: [
+      {label: "Внедрение", value: {{vnedr|safe}}},
+      {label: "Методическое сопровожение", value: {{ms|safe}}},
+      {label: "Техническая поддержка ", value: {{ts|safe}}},
+      {label: "Внутренний проект", value: {{vnut|safe}}}
+    ],
+    colors: ['#39DA8A','#5A8DEE','#FDAC41','#FF5B5C'],
+    resize: true
+  });
+  
+
+
+  new Morris.Line({
+    element: 'morrisLine2',
+    data: [
+      { y: '2019-01', a: 200, b: 100, c: 400 },
+      { y: '2019-03', a: 300, b: 150, c: 450 },
+      { y: '2019-06', a: 500, b: 400, c: 650 },
+      { y: '2019-09', a: 400, b: 250, c: 550 },
+      { y: '2019-12', a: 300, b: 150, c: 450 },
+      { y: '2020-01', a: 450 },
+      { y: '2020-03', a: 600 }
+    ],
+    xkey: 'y',
+    ykeys: ['a', 'b', 'c'],
+    labels: ['План', 'Факт', 'Затраты'],
+    lineColors: ['#39DA8A', '#5A8DEE', '#FDAC41'],
+    lineWidth: 1,
+    ymax: 'auto',
+    gridTextSize: 11,
+    hideHover: 'auto',
+    resize: true
+  });
+});  
+  
+</script>
+  
+  <script>
+  var list = {{name|safe}}
+
+      $( document ).ready(function() {
+          "use strict"; 
+      
+      var ctx8 = document.getElementById('chartStacked2');
+        new Chart(ctx8, {
+          type: 'horizontalBar',
+          data: {
+            labels:  list,
+            datasets: [{
+              data: {{cost|safe}} ,
+              backgroundColor: '#5A8DEE',
+              borderWidth: 1,
+              fill: true
+            },{
+              data: {{osvoe|safe}},
+              backgroundColor: '#39DA8A',
+              borderWidth: 1,
+              fill: true
+            }]
+          },
+          options: {
+            legend: {
+              display: false,
+                labels: {
+                  display: false
+                }
+            },
+            scales: {
+              yAxes: [{
+                stacked: true
+              }],
+              xAxes: [{
+                stacked: true
+              }]
+            }
+          }
+        });
+      
+  /** PIE CHART **/
+
+  var datapie = {
+    labels: ["Проблемы", "Риски", "Оплачено", 'В работе', 'Ожидаем оплату', 'Срыв сроков'],
+    datasets: [{
+      data: {{olinfo|safe}} ,
+      backgroundColor: [
+        '#5A8DEE',
+        '#39DA8A',
+        '#506b8b',
+        '#FDAC41',
+        '#FF5B5C'
+      ]
+    }]
+  };
+
+  var optionpie = {
+    responsive: true,
+    legend: {
+      display: false,
+    },
+    animation: {
+      animateScale: true,
+      animateRotate: true
+    }
+  };
+
+  // For a doughnut chart
+  var ctx6 = document.getElementById('chartPie');
+  var myPieChart6 = new Chart(ctx6, {
+    type: 'doughnut',
+    labels: datapie, 
+    data: datapie,
+    options: optionpie
+  });
+
+  
+
+
+      });
+      
+      </script>
+      
+{% endblock %}

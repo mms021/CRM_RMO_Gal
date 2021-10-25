@@ -1,0 +1,175 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Ресурсы </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+
+<style>
+
+table tbody {
+  display: block;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+table thead, table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+</style>
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"> Ресурсы </h4> 
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+
+
+
+      <div class="row">
+        <div class="col-xl-12 col-12">	
+          <div class="clearfix">
+            <a hidden href="{% url 'resurses:resorsmatch' %}" class="btn btn-secondary mb-5">  Указать расход ресурсов  Согласовать ресурсы</a>
+            
+            <a href="{% url 'resurses:soglosov' %}" class="btn btn-secondary mb-5">Указать расход ресурсов</a>
+            
+            <div class="btn-group mb-5">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> Ресурсы по отделам  </button>
+              <div class="dropdown-menu">
+                {% for i in otd|otdelfilf:user.first_name %}
+              <a class="dropdown-item" href="{% url 'resurses:otdelcontacts' pk=i.id %}">{{i.title}}</a> 
+                {% endfor %}
+              </div>
+            </div>
+            {% if user.is_staff %}
+            <div class="btn-group mb-5">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Отделы</button>
+              <div class="dropdown-menu">
+                {% for i in otd %}
+              <a class="dropdown-item" href="{% url 'resurses:otdelcontacts' pk=i.id %}">{{i.title}}</a> 
+                {% endfor %}
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'resurses:resorsmatcofall' %}">Все команды</a>
+              </div>
+            </div>
+            {% endif %}
+            <div class="btn-group mb-5">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Отчетный период </button>
+              <div class="dropdown-menu">
+                {% for i in per %}
+              <a class="dropdown-item" href="{% url 'resurses:rezalt' pk=i.id %}">{{i.title}}</a> 
+                {% endfor %}
+              </div>
+            </div>
+            <!---->					 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title">{{ otdel }}  ({{ gor.title }}) </h4> 
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+          <form action="" method="post">
+            {% csrf_token %}
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+              <thead  >
+              <tr>
+                <th width='10px'>№</th>
+                <th width='150px' >ФИО</th>
+                <th width='70px'> Итог </th>
+                {% for key, value in proj.items %}
+                <th  width='130px'> <a href="#">{{ value }}</a> </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody> 
+              {% for res in sot %}
+              <tr>
+                <td width='10px'> {{ forloop.counter }} </td>
+                <td width='150px'> <a href="{% url 'resurses:mywokrcrename' pk=res.index %}">{{ res.title }}</a>  <!-- <br> {{ res.doljnost }}--> </td>
+                <td width='70px'> 
+                  {% if res.id|itog:res.index != 100 %}
+                  <span class="label label-danger">{{ res.id|itog:res.index  }} </span>
+                  {% elif res.id|itog:res.index  == 100 %}
+                  <span class="label label-success"> 100 </span>
+                  {% endif %}
+                </td>
+                {% for key, value in proj.items %}
+                <th width='130px'>
+                  {% checmyresors key res.index  as prod %}
+                  {% if prod != 'non' %}
+                  <input type="hidden" name="checid" value="{{ key }}?{{ res.index }}">
+                  <select class="form-control select2"  name="proz" title="{{ res.title }}|{{value}}  " > 
+                    <option value="{{ prod }}">{{  prod }}%</option>
+                    <option value="0">0%</option>
+                    <option value="10">10%</option>
+                    <option value="20">20%</option>
+                    <option value="30">30%</option>
+                    <option value="40">40%</option>
+                    <option value="50">50%</option>
+                    <option value="60">60%</option>
+                    <option value="70">70%</option>
+                    <option value="80">80%</option>
+                    <option value="90">90%</option>
+                    <option value="100">100%</option>
+                  </select>   
+
+                  {% endif %}
+                </th>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+             </tbody>
+            </table>
+            
+          </div>
+          <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block">
+        </form>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  
+</div>
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+{% endblock %}

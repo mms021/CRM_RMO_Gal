@@ -1,0 +1,69 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Контакты </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  {% for int in otdel %}
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"> {{ int.title }}</h4> <h6 class="box-title"> {{ int.level }}</h6>
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <tbody>
+                <tr>
+                  <th>№</th>
+                  <th>ФИО</th>
+                  <th>Должность</th>
+                  <th>Почта</th>
+                  <th>Телефон</th>
+                </tr>
+                {% for res in cont %}
+                {% if res.ondel.title == int.title %}
+                <tr>
+                  <td> {{ forloop.counter }} </td>
+                  <td> {{ res.title }} </td>
+                  <td> {{ res.doljnost }} </td>
+                  <td> {{ res.mail }} </td>
+                  <td> {{ res.telnomder }} </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

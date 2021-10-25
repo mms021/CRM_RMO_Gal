@@ -1,0 +1,135 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Ресурсы </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+<style>
+  table tbody {
+    display: block;
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+  
+  table thead, table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  </style>
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  
+  <div class="box">
+   
+    <div class="box-header with-border">
+      
+      <h4 class="box-title"> Ресурсы</h4> 
+      
+     
+    </div>
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+          
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                  <th width='10px'>№</th>
+                  <th width='150px'> ФИО </th>
+                  {% for i in prog %}
+                  <th width='130px'>
+                  {% if i.rucgrup == "pres" %} 
+                  <a href="{% url 'preseil:preselproj' pk=i.id %}">
+                    <span class="badge badge-pill badge-info">{{ i.title }}</span>
+                  </a>
+                  {% else %} 
+                  <a href="{% url 'projects:passs' pk=i.id %}">
+                    <span class="badge badge-pill badge-warning">{{ i.title }}</span>
+                  </a>
+                  {% endif %}
+                  </th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for h in cont %}
+                <tr>
+                <th width='10px'>{{ forloop.counter }}</th>
+                <th width='150px'>{{ h.title }} </th>  
+                {% for i in prog %}
+                  <th width='130px'> 
+                    {% checmyresors i.id h.index  as prod %}
+                    {% if prod != 'non' %}
+                    <input type="hidden" name="checid" value="{{ i.id }}?{{ h.index }}"  >
+                    <select class="form-control select2"  name="proz"  title=" {{ i.title }} | {{ h.title }}"> 
+                      <option value="{{ prod }}">{{  prod }}%</option>
+                      <option value="0">0%</option>
+                      <option value="10">10%</option>
+                      <option value="20">20%</option>
+                      <option value="30">30%</option>
+                      <option value="40">40%</option>
+                      <option value="50">50%</option>
+                      <option value="60">60%</option>
+                      <option value="70">70%</option>
+                      <option value="80">80%</option>
+                      <option value="90">90%</option>
+                      <option value="100">100%</option>
+                    </select>   
+                    {% endif %}
+                  </th>
+                {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+                
+              </table>
+            </div>
+
+            <div class="">
+              
+              <input type="submit" value="Утвердить расход ресурсов" class="btn btn-group-lg btn-block btn-success" > 
+             
+            </div>
+            
+          </form>
+
+        </div>
+      </div>
+      
+    </div>
+  
+  </div>
+ 
+
+</div>
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

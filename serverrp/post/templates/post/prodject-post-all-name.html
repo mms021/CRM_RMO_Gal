@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Письма </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pres %}
+<!-- Стили -->
+{% block page_styles %}
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+  
+ 
+
+  <div class="box-header">
+    <h4 class="box-title"> Письма: {{ pk }}</h4>
+    <div class="box-controls pull-right">
+    </div>
+  </div>
+    <div class="box-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tr>
+            <th> Номер </th>
+            <th> Дата </th>
+            <th width="30%"> Описание </th>
+            <th> Кому </th>
+            <th> Ответственный </th>
+          </tr>
+          {% for itm in nom%}
+          <tr>
+            <td> 
+              {{ itm.title|nameofcomp }} <br>
+              {{ itm.title|prefnom }}  {{ itm.nomer }}</td>
+            <td> {{ itm.data }} </td>
+            <td> {{ itm.ochem }}</td>
+            <td> {{ itm.komy }} </td>
+            <td>  <a href="{% url 'post:postname' pk=itm.otvetstven %}">{{ itm.otvetstven }}</a> </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block page_staticjsandcss %}
+ <!-- Bootstrap WYSIHTML5 -->
+ 
+ {% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Команда проекта </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"> Компании </h4> 
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <form action="" method="post"> 
+    {% csrf_token %}
+    <input type="hidden" name="form" value="del">
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <tbody>
+                <tr>
+                  
+                  <th>№</th>
+                  <th>Компания</th>
+                  <th>Отрасль</th>
+                 
+                  <th>Почта</th>
+                  <th>Телефон</th>
+                </tr>
+                {% for res in cont %}
+                
+                <tr>
+                  
+                  <td> {{ forloop.counter }} </td>
+                  <td> <a href="{% url 'resurses:companicontacts' pk=res.id %}"> {{ res.title }}</a> </td>
+                  <td> {{ res.otraasal }} </td>
+                  
+                  <td> {{ res.email }} </td>
+                  <td> {{ res.telefon }} </td>
+                </tr>
+                
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            
+
+        </div>
+      </div>
+      </div>
+      
+    </form>
+
+    
+  </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

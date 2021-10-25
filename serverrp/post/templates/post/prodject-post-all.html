@@ -1,0 +1,498 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Письма </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pres %}
+<!-- Стили -->
+{% block page_styles %}
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+  <div class="box">
+    <div class="box-header">
+      <h4 class="box-title">  <button class="btn btn-sm btn-primary" type="button" alt="default" data-toggle="modal" data-target="#ollcontacts"> Получить номер исходящего  </button>
+       </h4>			
+      <div class="box-controls pull-right"> 
+          <div class="lookup lookup-circle lookup-right">
+          <input type="text" name="s">
+        </div>
+      
+      </div>
+    </div>
+    <div class=""> 
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item"> <a class="nav-link" hidden data-toggle="tab" href="#KG" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">  Корпорация Галактика  </span></a> </li>
+      <li class="nav-item"> <a class="nav-link" hidden data-toggle="tab" href="#AGZ" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down"> АО Галактика Центр  </span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#IG" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down"> АО НТЦ Галактика  </span></a> </li>
+      <li class="nav-item"> <a class="nav-link" hidden data-toggle="tab" href="#OGZ" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">  ООО Галактика Центр  </span></a> </li>
+      <li class="nav-item"> <a class="nav-link active"  data-toggle="tab" href="#GP" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down"> АО Галактика Про </span></a> </li>
+      
+    </ul>
+    
+    <div class="tab-content tabcontent-border">
+      <div class="tab-pane " id="KG" role="tabpanel">
+        <div class="pad">
+
+          <div class="box-header">
+            <h4 class="box-title"> Корпорация Галактика </h4>
+            <div class="box-controls pull-right">
+            </div>
+          </div>
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <tr>
+                    <th> Номер </th>
+                    <th> Дата </th>
+                    <th width="30%"> Описание </th>
+                    <th> Кому </th>
+                    <th> Ответственный </th>
+                    <th> Файл </th>
+                  </tr>
+                  {% for itm in nom|nomerpisem:'KG' %}
+                  <tr>
+                    <td> <a href="{% url 'post:pismofile' pk=itm.id %}">00-07/{% if itm.pernom %}{{ itm.pernom }}/{% endif %}{{ itm.nomer }}</a></td>
+                    <td> {{ itm.data }} </td>
+                    <td> {{ itm.ochem }}</td>
+                    <td> {{ itm.komy }} </td>
+                    <td> <a href="{% url 'post:postname' pk=itm.otvetstven %}">{{ itm.otvetstven }}</a> </td>
+                    <td> <a href="{{ MEDIA_URL }}{{ itm.filefild }}" download > {{ itm.filefild }}</a></td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="tab-pane pad" id="AGZ" role="tabpanel">
+        <div class="box-header">
+          <h4 class="box-title"> АО Галактика Центр </h4>
+          <div class="box-controls pull-right">
+          </div>
+        </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tr>
+                  <th> Номер </th>
+                  <th> Дата </th>
+                  <th width="30%"> Описание </th>
+                  <th> Кому </th>
+                  <th> Ответственный </th>
+                  <th></th>
+                </tr>
+                {% for itm in nom|nomerpisem:'AGZ'  %}
+                <tr>
+                  <td> <a href="{% url 'post:pismofile' pk=itm.id %}">00-07/{% if itm.pernom %}{{ itm.pernom }}/{% endif %}{{ itm.nomer }}</a></td>
+                  <td> {{ itm.data }} </td>
+                  <td> {{ itm.ochem }}</td>
+                  <td> {{ itm.komy }} </td>
+                  <td> <a href="{% url 'post:postname' pk=itm.otvetstven %}">{{ itm.otvetstven }}</a> </td>
+                  <td> <a href="{{ MEDIA_URL }}{{ itm.filefild }}" download > {{ itm.filefild }}</a></td>
+                  
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+      </div>
+      <div class="tab-pane pad" id="OGZ" role="tabpanel">
+        <div class="box-header">
+          <h4 class="box-title"> ООО Галактика Центр </h4>
+          <div class="box-controls pull-right">
+          </div>
+        </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tr>
+                  <th> Номер </th>
+                  <th> Дата </th>
+                  <th width="30%"> Описание </th>
+                  <th> Кому </th>
+                  <th> Ответственный </th>
+                  <th></th>
+                </tr>
+                {% for itm in nom|nomerpisem:'OGZ' %}
+                <tr>
+                  <td> <a href="{% url 'post:pismofile' pk=itm.id %}">00-07/{% if itm.pernom %}{{ itm.pernom }}/{% endif %}{{ itm.nomer }}</a></td>
+                  <td> {{ itm.data }} </td>
+                  <td> {{ itm.ochem }}</td>
+                  <td> {{ itm.komy }} </td>
+                  <td> <a href="{% url 'post:postname' pk=itm.otvetstven %}">{{ itm.otvetstven }}</a> </td>
+                  <td> <a href="{{ MEDIA_URL }}{{ itm.filefild }}" download > {{ itm.filefild }}</a></td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+      </div>
+      <div class="tab-pane pad" id="IG" role="tabpanel">
+        <div class="box-header">
+          <h4 class="box-title"> АО НТЦ Галактика </h4>
+          <div class="box-controls pull-right">
+          </div>
+        </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table id="example5" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                  <tr>
+                  <th># </th>
+                  <th>Номер</th>
+                  <th>Дата</th>
+                  <th width="30%">Описание</th>
+                  <th>Кому </th>
+                  <th>Ответственный</th>
+                  <th> Трек номер </th>
+                  <th>Файл</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for itm in nom|nomerpisem:'IG' %}
+                <tr>
+                  <td > {{ forloop.counter }} </td>
+                  <td> <a href="{% url 'post:pismofile' pk=itm.id %}">10-01/{% if itm.pernom %}{{ itm.pernom }}/{% endif %}{{ itm.nomer }}</a></td>
+                  <td> {{ itm.data }} </td>
+                  <td> {{ itm.ochem }}</td>
+                  <td> {{ itm.komy }} </td>
+                  <td> <a href="{% url 'post:postname' pk=itm.otvetstven %}">{{ itm.otvetstven }}</a> </td>
+                  <td>
+                    {% if itm.trec %}
+                      {{ itm.trec }}
+                    {% endif %}
+                  </td>
+                  
+                  <td> 
+                    {% if itm.filefild %}
+                    <a href="{{ MEDIA_URL }}{{ itm.filefild }}" download > файл</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+      <div class="tab-pane pad active" id="GP" role="tabpanel">
+        <div class="box-header">
+          <h4 class="box-title"> АО Галактика ПРО </h4>
+          <div class="box-controls pull-right">
+          </div>
+        </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table id="example6" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                  <tr>
+                  <th># </th>
+                  <th>Номер</th>
+                  <th>Дата</th>
+                  <th width="30%">Описание</th>
+                  <th>Кому </th>
+                  <th>Ответственный</th>
+                  <th> Трек номер </th>
+                  <th>Файл</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for itm in nom|nomerpisem:'GP' %}
+                <tr>
+                  <td > {{ forloop.counter }} </td>
+                  <td> <a href="{% url 'post:pismofile' pk=itm.id %}">10-01/{% if itm.pernom %}{{ itm.pernom }}/{% endif %}{{ itm.nomer }}</a></td>
+                  <td> {{ itm.data }} </td>
+                  <td> {{ itm.ochem }}</td>
+                  <td> {{ itm.komy }} </td>
+                  <td> <a href="{% url 'post:postname' pk=itm.otvetstven %}">{{ itm.otvetstven }}</a> </td>
+                  <td>
+                    {% if itm.trec %}
+                      {{ itm.trec }}
+                    {% endif %}
+                  </td>
+                  <td> 
+                    {% if itm.filefild %}
+                    <a href="{{ MEDIA_URL }}{{ itm.filefild }}" download > файл</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+    <!-- /.box-header -->
+</div> 
+</div>
+
+<div class="col-lg-6 col-12">
+  <div id ='ollcontacts' class="modal fade bs-example-modal-lg show" aria-modal="true" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel"> Получить номер исходящего  </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#new" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">  Номер исходящего </span></a> </li>
+          <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#old" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down"> Номер исходящего "Задним числом" </span></a> </li>
+        </ul>
+        <div class="tab-content tabcontent-border"> 
+        <div class="tab-pane active" id="new" role="tabpanel">
+          <div class="pad">
+            <form action="" method="post">
+              {% csrf_token %} 
+              <input type="hidden" name="tip" value="new">
+                <div class="form-group">
+                <label for="title"> От: </label> 
+                <select name="title" class="form-control"> 
+                  <option value="IG"> АО НТЦ Галактика </option>
+                  <option value="GP"> АО Галактика Про</option> 
+                 <!--<option value="KG"> Корпорация Галактика </option>
+                  <option value="AGZ"> АО Галактика Центр</option>
+                  <option value="OGZ"> ООО Галактика Центр</option>--> 
+                
+                </select>
+                
+                </div>
+                <div class="form-group">
+                  <label for="ochem"> Тема письма </label> 
+                  <input class="form-control" name="ochem" type="text" placeholder="Тема письма:" required>
+                </div>
+                <div class="form-group">
+                  <label for="komy"> Кому: </label> 
+                  <input class="form-control" name="komy" type="text" placeholder="Кому:" required>
+                </div>
+                <div class="form-group">
+                  <label for="data"> Дата: </label> 
+                  <input class="form-control" name="data" type="text" placeholder="Дата письма:" value="{% now "j.m.o" %}" required>
+                </div>
+               <div class="modal-footer">
+              <input type="submit" value="Сохранить" class="btn btn-success">
+              <div class="pull-right">
+                <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+              </div>
+             </div> 
+              </form>
+          </div>
+        </div>
+        <div class="tab-pane pad" id="old" role="tabpanel">
+          <form action="" method="post">
+              {% csrf_token %} 
+              <input type="hidden" name="tip" value="old">
+                <div class="form-group">
+                <label for="title"> От: </label> 
+                <select name="title" class="form-control"> 
+                  <option value="IG"> АО НТЦ Галактика </option>
+                  <option value="GP"> АО Галактика Про</option> 
+                 <!--<option value="KG"> Корпорация Галактика </option>
+                  <option value="AGZ"> АО Галактика Центр</option>
+                  <option value="OGZ"> ООО Галактика Центр</option>--> 
+                
+                </select>
+                
+                </div>
+                <div class="form-group">
+                  <label for="ochem"> Тема письма: </label> 
+                  <input class="form-control" name="ochem" type="text" placeholder="Тема письма:" required>
+                </div>
+                <div class="form-group">
+                  <label for="komy"> Кому: </label> 
+                  <input class="form-control" name="komy" type="text" placeholder="Кому:" required>
+                </div>
+                <div class="form-group">
+                  <label for="komy"> Первичный номер: </label> 
+                  <input class="form-control" name="pernom" type="text" placeholder="Первичный номер:" required>
+                </div>
+                <div class="form-group">
+                  <label for="data"> Дата: </label> 
+                  <input class="form-control" name="data" type="text" placeholder="Дата письма:" required>
+                </div>
+              
+            
+            <div class="modal-footer">
+              <input type="submit" value="Сохранить" class="btn btn-success">
+              <div class="pull-right">
+                <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+              </div>
+              </div> 
+          </form>
+        </div>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+  </div>
+  </div>
+</div>
+
+
+
+<div class="col-lg-6 col-12">
+  <div id ='showme' class="modal fade bs-example-modal-lg show" aria-modal="true" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel"> Номер исходящего  </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+       
+
+      <h4> 10-01/{% if nomle.pernom %}{{ nomle.pernom }}/{% endif %}{{ nomle.nomer }}</h4> 
+        <p> {{ nomle.komy }} </p>
+        <p> {{ nomle.data }} </p>
+        <p> {{ nomle.ochem }} </p>
+      </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+  </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
+{% block page_staticjsandcss %}
+
+<script>
+  $("#{{ idollcontacts }}").modal('show');
+</script>
+
+<script src="{% static "projects/assets/vendor_components/datatable/datatables.min.js"%}"></script>
+
+<script>
+$(function () {
+    "use strict";
+	//--------Individual column searching
+    // Setup - add a text input to each footer cell
+    $('#example5 tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder '+title+'" />' );
+    } );
+    // DataTable
+    var table = $('#example5').DataTable(
+      {
+        
+        'searching'  : true,
+        language: {
+          
+          "url": "dataTables.russian.lang" ,
+          "processing": "Подождите...",
+          "search": "Поиск:",
+          "lengthMenu": "Показать _MENU_ ",
+          "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+          "infoEmpty": "Записи с 0 до 0 из 0 записей",
+          "infoFiltered": "(отфильтровано из _MAX_ записей)",
+          "infoPostFix": "",
+          "loadingRecords": "Загрузка записей...",
+          "zeroRecords": "Записи отсутствуют.",
+          "emptyTable": "В таблице отсутствуют данные",
+          "paginate": {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+          },
+          "aria": {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+          }
+      }
+      }
+    );
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+  }); // End of use strict
+</script>
+
+<script>
+  $(function () {
+      "use strict";
+    //--------Individual column searching
+      // Setup - add a text input to each footer cell
+      $('#example6 tfoot th').each( function () {
+          var title = $(this).text();
+          $(this).html( '<input type="text" placeholder '+title+'" />' );
+      } );
+      // DataTable
+      var table = $('#example6').DataTable(
+        {
+          
+          'searching'  : true,
+          language: {
+            
+            "url": "dataTables.russian.lang" ,
+            "processing": "Подождите...",
+            "search": "Поиск:",
+            "lengthMenu": "Показать _MENU_ ",
+            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+            "infoEmpty": "Записи с 0 до 0 из 0 записей",
+            "infoFiltered": "(отфильтровано из _MAX_ записей)",
+            "infoPostFix": "",
+            "loadingRecords": "Загрузка записей...",
+            "zeroRecords": "Записи отсутствуют.",
+            "emptyTable": "В таблице отсутствуют данные",
+            "paginate": {
+              "first": "Первая",
+              "previous": "Предыдущая",
+              "next": "Следующая",
+              "last": "Последняя"
+            },
+            "aria": {
+              "sortAscending": ": активировать для сортировки столбца по возрастанию",
+              "sortDescending": ": активировать для сортировки столбца по убыванию"
+            }
+        }
+        }
+      );
+   
+      // Apply the search
+      table.columns().every( function () {
+          var that = this;
+   
+          $( 'input', this.footer() ).on( 'keyup change', function () {
+              if ( that.search() !== this.value ) {
+                  that
+                      .search( this.value )
+                      .draw();
+              }
+          } );
+      } );
+    }); // End of use strict
+  </script>
+<script src="{% static "projects/js/pages/project-table.js"%}"></script>
+
+ {% endblock %}

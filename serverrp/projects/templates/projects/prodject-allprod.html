@@ -1,0 +1,140 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Отчет по Проекту </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+
+<div class="">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tekush" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">Текущие проекты</span></a> </li>
+    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#zaversh" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Завершенные</span></a> </li>
+    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sistems" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Системные</span></a> </li>
+  </ul>        
+</div>
+<div class="box">
+      <!-- /.box-header -->
+      
+      <div class="tab-content tabcontent-border">
+        <!-- текущие -->
+        <div class="tab-pane active" id="tekush" role="tabpanel">
+          <div class="pad">
+            <div class="box-header">
+              <h4 class="box-title">Текущие проекты</h4>
+            </div>
+            <div class="box-body"> 
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <tr>
+                <th>№</th>
+                <th>Проект</th>
+                <th>Номер договора</th>
+                <th width="100">Тип договора</th>
+                <th >Процент выполнения </th>
+                <th>Статус</th>
+              </tr>
+              {% for itm in projects|projfolter:'all' %}
+              <tr>
+                <td> {{ forloop.counter }}</td>
+                <td><a href="{% url 'projects:passs' pk=itm.id %}">{{ itm.title }}</a></td>
+                <td> {{ itm.nomerdogovora }} </td>
+                <td> {{ itm.tipdogovora }}</td>
+                <td> {{ itm.id|prozentpo }} % </td>
+                <td> {{ itm.activedog }} 
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+         </div>
+          </div>
+        </div>
+        <!-- Завершенные -->
+        <div class="tab-pane pad" id="zaversh" role="tabpanel">
+          <div class="box-header">
+            <h4 class="box-title">Завершенные проекты </h4>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tr>
+                  <th>№</th>
+                  <th>Проект</th>
+                  <th>Номер договора</th>
+                  <th width="100">Тип договора</th>
+                  <th >Процент выполнения </th>
+                  <th>Статус</th>
+                </tr>
+                {% for itm in projects|projfolter:'zaz' %}
+                <tr>
+                  <td> {{ forloop.counter }}</td>
+                  <td><a href="{% url 'projects:passs' pk=itm.id %}">{{ itm.title }}</a></td>
+                  <td> {{ itm.nomerdogovora }} </td>
+                  <td> {{ itm.tipdogovora }}</td>
+                  <td> {{ itm.id|prozentpo }} % </td>
+                  <td> {{ itm.activedog }} 
+                  </td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+
+          </div>
+        </div>
+        <!-- Системные -->
+        <div class="tab-pane pad" id="sistems" role="tabpanel">
+          <div class="box-header">
+            <h4 class="box-title">Системные проекты </h4>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tr>
+                  <th>№</th>
+                  <th>Проект</th>
+                  <th>Номер договора</th>
+                  <th width="100">Тип договора</th>
+                  <th >Процент выполнения </th>
+                  <th>Статус</th>
+                </tr>
+                {% for itm in projects|projfolter:'sis' %}
+                <tr>
+                  <td> {{ forloop.counter }}</td>
+                  <td><a href="{% url 'projects:passs' pk=itm.id %}">{{ itm.title }}</a></td>
+                  <td> {{ itm.nomerdogovora }} </td>
+                  <td> {{ itm.tipdogovora }}</td>
+                  <td> {{ itm.id|prozentpo }} % </td>
+                  <td> {{ itm.activedog }} 
+                  </td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+
+          </div>
+        </div>
+        </div>
+</div>  
+
+{% endblock %}
+
+
+

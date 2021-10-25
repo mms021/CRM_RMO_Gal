@@ -1,0 +1,135 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> ПМО</title>
+{% endblock %}
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const areas = document.querySelectorAll("#textar"); // 
+        for (const area of areas) {
+            area.style.height = "1px";
+            area.style.height = (4 + area.scrollHeight) + "px";
+        }
+    })
+</script>
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+<li class="header">Проекты</li>  
+		  
+        <li class="treeview">
+          <a href="#">
+            <i class="ti-palette"></i>
+            <span>Все проекты </span>
+            <span class="pull-right-container">
+              <i class="fa fa-caret-down pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+
+			
+			{% for itm in projects %}
+
+            <li><a href="#{{ itm.title }}"><i class="fa fa-circle-thin"></i>{{ itm.title }}</a></li>
+            
+			
+			{% endfor %}
+          </ul>
+</li>
+
+{% endblock %}
+
+<!-- Основной контент -->
+{% block page_contecst %}
+
+
+<form method="post">
+    {% csrf_token %}    
+  <div class="box">
+    <div class="box-header">
+        <h4 class="box-title">Все проекты  </h4>
+        <div class="box-controls pull-right">
+          
+        </div>
+  </div>
+  <!-- /.box-header -->
+<div class="box-body no-padding">
+
+<div class="table-responsive">
+      
+            <div class="table-responsive">
+              <!-- Projects table -->
+
+              <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                  <tr>
+                    <th scope="col" cols='3'>Проект</th>
+                    <th scope="col" width="30">Этап</th>
+                    <th scope="col">Дата начала</th>
+                    <th scope="col">Дата завершения</th>
+                    <th scope="col">Акт </th>
+                    <th scope="col">Оплата </th>
+                    <th scope="col">Комментарий</th>
+                    
+                  </tr>
+                </thead>
+                <tbody >
+                 
+                    {% for itm in projects %}
+                    <tr > 
+                        <td rowspan="{{itm.id|itcou}}}">
+                        <a class ="Fig" href=
+                        {% if user.username == "stepanova" %}
+                            "{% url 'projects:detail_st' pk=itm.id %}" 
+                        {% else %}
+                            "{% url 'projects:detail' pk=itm.id %}" 
+                        {% endif %}    
+                        name="{{ itm.title }}">
+                      {{ itm.title }} <br> РП: {{ itm.rpproecta }} <br> {{ itm.nomerdogovora }} <br> {{ itm.tipdogovora }} 
+                      </a> <br>
+                      <select name="otchm" id="otchm{{ itm.id }}"> 
+                              <option value="{{ itm.otchtetm }}">{{ itm.otchtetm }}</option>
+                              <option value="Д">Д</option>
+                              <option value="Н">Н</option>
+                      </select>
+                      </td> 
+                        {% for itms in itap|it:itm.id %}
+                           
+                                     
+                                <td> {{ itms.title }} <br>{{ itms.itapnaim }}</td> 
+                                <td> {{ itms.datastart|date:"j.m.o" }}</td> 
+                                <td> {{ itms.datastop|date:"j.m.o"  }}</td> 
+        
+                                <td> {{ itms.act }}</td>
+                                <td> {{ itms.oplata }} <input type="hidden" name="iditap" value="{{itms.id}}"> </td>
+                                <td> 
+                                        <textarea type="text" name = 'komentrp' cols="50"  onchange="textAreaAdjust(this)"  spellcheck="true" id = 'textar'>{{ itms.komentrp }}</textarea>
+                                        <br> Коментарий Ирины Степановой: 
+                                        <textarea type="text" name = 'komentstep' cols="50" onchange="textAreaAdjust(this)"  spellcheck="true" id = 'textar'>{{ itms.komentstep }}</textarea>
+                                        <br> Задолжность:
+                                        <input type="text" name = 'zadolkjnost' id = 'zadolkjnost{{ itms.id }}' value='{{ itms.zadolkjnost }}'>
+                                </td>
+                            </tr> 
+                          
+                         {% endfor %}
+                {% endfor %}
+                        
+            
+                </tbody>
+              </table>
+            </div>
+          
+        <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+ </form>  
+</div>
+</div>
+
+{% endblock %}

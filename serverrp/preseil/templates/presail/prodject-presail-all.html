@@ -1,0 +1,263 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Пресейл </title>
+{% endblock %}
+
+{% load static %}
+{% load pres %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="box">
+        <div class="box-header">
+            <h4 class="box-title">Пресейл</h4>
+            <div class="box-controls pull-right">
+              <div class="lookup lookup-circle lookup-right">
+                <input type="text" name="s">
+              </div>
+            </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body ">
+        <div class="row">
+          <div class="col-xl-12 col-12">	
+            <div class="clearfix">
+              <a href="{% url 'preseil:presailall' %}" class="btn btn-secondary mb-5">  Мои Пресейлы</a>
+              
+              {% if user.is_staff or user.username == "stepanova"  or  user.username == "tselikov" %}	  
+              <a href="{% url 'preseil:presail' %}" class="btn btn-secondary mb-5">  Все Пресейлы</a>
+              {% endif %}	
+              <a href="{% url 'preseil:presailnew' %}" class="btn btn-secondary mb-5">  Добавить </a>
+              <a href="{% url 'preseil:presailotchet' %}" class="btn btn-secondary mb-5">  Отчет </a>
+
+              <button type="button" class="btn btn-outline-secondary mb-5 "  alt="default" data-toggle="modal" data-target="#filter">Фильтр</button>
+              <!---->					
+            </div>
+          </div>
+        </div>
+
+
+      <div class="row">
+          <div class="col-xl-12 col-12" >
+          <div class="table-responsive">
+            <table id="example5" class="table table-bordered table-striped" style="width:100%">
+             <thead>
+              <tr>
+                <th>№</th>
+                <th width='20%' >Проект</th>
+                <th> Менеджер </th>
+                <th > Канал </th>
+                <th> Продукт </th>
+                <th>Сумма </th>
+                <th>Статус </th>
+                <th>Вероятность</th>
+                <th>Процент реализации  </th>
+                <th>Последнее обновление </th>
+              </tr>
+            </thead>
+            <tbody> 
+              {% for itm in press %}
+               
+              <tr>
+                <td> {{ forloop.counter }}</td>
+                <td><a href="{% url 'preseil:preselproj' pk=itm.id %}">{{ itm.title }}</a></td>
+                <td> {{ itm.rpproecta }} </td>
+                <td> {{ itm.kanal }}</td>
+                <td> {% for u in itm.products.all %}  {{ u.title }} {% empty %} -  {% endfor %}</td>
+                <td> {{ itm.summa }}</td>
+                <td> {{ itm.status }} </td>
+                <td> {{ itm.veroytnost }} </td>
+                <td> {{ itm.id|proxxx }} % </td>
+                <td> {{ itm.id|otchetpresdata }} </td>
+              </tr>
+              
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          </div>
+      </div>
+      </div>
+      <!-- /.box-body -->
+  </div>
+
+  <div class="col-lg-12 col-12">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id ='filter' aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form action="" method="post">
+          {% csrf_token %} 
+        <div class="modal-header">
+          <h4 class="modal-title" id="myLargeModalLabel"> Фильтр  </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-6" >
+            <div class="form-group">
+            <label> Менеджер</label>
+            <select class="form-control" name="rp" >
+              <option value="-">-</option> 
+              {% for us in users %}
+              <option value="{{ us.first_name }}">{{ us.first_name }}</option>
+              {% endfor %}  
+            </select>
+            </div>
+            </div>
+            
+            <div class="col-6" >
+              <div class="form-group">
+              <label> Продукт</label>
+              <select class="form-control" name="product" >
+                <option value="-">-</option> 
+                {% for sd in prod %}
+                <option value="{{ sd.id }}">{{ sd.title }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            </div>
+            
+              <div class="col-6" >
+                <div class="form-group">
+                <label> Статус</label>
+                <select class="form-control" name="status">
+                  <option value="-">-</option> 
+                  <option value="Активный">Активный</option>
+                  <option value="На паузе">На паузе</option>
+                  <option value="Отказ">Отказ</option>
+                  <option value="Завершен">Завершен</option>
+                </select>
+                </div>
+              </div>
+              <div class="col-6" >
+                <div class="form-group">
+                <label> Группа</label>
+                <select class="form-control" name="polzvt">
+                  <option value="-">-</option> 
+                  <option value="Первичный">Первичный</option>
+                  <option value="Пользователь">Пользователь</option>
+                </select>
+                </div>
+              </div>
+          </div>
+          <!--  
+          <div class="row">
+            <div class="col-6" >
+              <div class="form-group mb-0">
+                <label class="control-label">Сумма с</label>
+                <input type="text" name='sum1' class="form-control" value="0">
+              </div>
+            </div>
+            <div class="col-6" >
+              <div class="form-group mb-0">
+                <label class="control-label">Сумма до</label>
+                <input type="text" name='sum2' class="form-control" value="10000000">
+              </div>
+            </div>
+          </div>    
+          -->
+          <input type="submit" value="Поиск" class="btn btn-success btn-block ">
+     
+        </div>
+        
+      </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    </div>   
+
+
+{% endblock %}
+
+
+
+{% block page_staticjsandcss %}
+
+
+
+<script src="{% static "projects/assets/vendor_components/datatable/datatables.min.js"%}"></script>
+
+
+<script>
+
+
+  //[Data Table Javascript]
+
+
+$(function () {
+    "use strict";
+	//--------Individual column searching
+	
+    // Setup - add a text input to each footer cell
+    $('#example5 tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder '+title+'" />' );
+    } );
+ 
+    // DataTable
+    var table = $('#example5').DataTable(
+      {
+        'searching'  : true,
+        language: {
+          
+          "url": "dataTables.russian.lang" ,
+          "processing": "Подождите...",
+          "search": "Поиск:",
+          "lengthMenu": "Показать _MENU_ ",
+          "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+          "infoEmpty": "Записи с 0 до 0 из 0 записей",
+          "infoFiltered": "(отфильтровано из _MAX_ записей)",
+          "infoPostFix": "",
+          "loadingRecords": "Загрузка записей...",
+          "zeroRecords": "Записи отсутствуют.",
+          "emptyTable": "В таблице отсутствуют данные",
+          "paginate": {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+          },
+          "aria": {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+          }
+      }
+      }
+    );
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+	
+
+  }); // End of use strict
+</script>
+
+{% endblock %}

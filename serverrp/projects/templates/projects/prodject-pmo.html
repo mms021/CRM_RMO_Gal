@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> ПМО</title>
+{% endblock %}
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+<li>
+    <a href="{% url 'projects:pmopost' %}" hidden>
+      <i class="ti-email"></i>
+<span>Разослать письма <br> {{ post }}</span>
+    </a>
+  </li>	
+<li>
+    <a href="{% url 'projects:list' %}">
+      <i class="ti-calendar"></i>
+<span>Все проекты</span>
+    </a>
+  </li>		  
+<li>
+    <a href="{% url 'projects:chrck' %}">
+      <i class="ti-pencil-alt"></i>
+<span>Проверка обновления</span>
+    </a>
+</li>
+
+
+{% endblock %}
+
+<!-- Основной контент -->
+{% block page_contecst %}
+
+
+<div class="table-responsive">
+    <!-- Projects table -->
+    <table  class="table align-items-center table-flush" >
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" >Login </th>
+          <th scope="col" >Имя пользователя</th>
+          <th scope="col">Последнее логирование</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody >
+      {% for int in use %}
+          <tr bgcolor="{% cycle '#DCDCDC' '#FFFFFF' as tablecolor %}">
+              <td> {{ int.username }}</td> <td> {{ int.first_name }} </td> <td> {{ int.last_login }}</td> <td> {{ int.email }}</td> 
+          </tr>
+      {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

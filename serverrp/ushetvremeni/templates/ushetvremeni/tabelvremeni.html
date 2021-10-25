@@ -1,0 +1,346 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Ресурсы </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resorsplan %}
+{% load resors %}
+{% load utchet %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  <div class="box">
+    <div class="box-header with-border">
+      <div class="btn-group mb-5">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> Ресурсы по отделам  </button>
+        <div class="dropdown-menu">
+        {% if user.is_staff %}   
+            {% for i in otd %}
+        <a class="dropdown-item" href="{% url 'ushetvremeni:vrem' pk=i.id %}">{{i.title}}</a> 
+          {% endfor %}
+        {% else %}
+          {% for i in otd|otdelfilf:user.first_name %}
+        <a class="dropdown-item" href="{% url 'ushetvremeni:vrem' pk=i.id %}">{{i.title}}</a> 
+          {% endfor %}
+        {% endif %}
+        </div>
+      </div>
+      <div class="btn-group mb-5">
+      <button type="button" class="btn btn-secondary "  alt="default" data-toggle="modal" data-target="#products"> Сокращения </button>
+        </div>
+      
+
+      <div class="pull-right" >
+           {{ year }} / {{ month }}
+      </div>
+
+    </div>
+    <div class="box-body">
+        <ul class="nav nav-tabs" role="tablist">
+        {% for i in data %}
+        {% cycle 'active' '' '' '' '' as rowcolors silent %}
+        {% dataflip i  year  month as jad %}
+        <li class="nav-item"> <a class="nav-link {{rowcolors}}" data-toggle="tab" href="#z{{ jad }}" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down"> {{ jad }}</span></a> </li>
+        {% endfor %}
+        </ul>  
+
+   
+
+    <div class="tab-content tabcontent-border"> 
+
+        {% for i in data %}   
+        {% cycle 'active' '' '' '' '' '' as rowcolors silent %} 
+        {% dataflip i  year  month as jad %}
+    <div class="tab-pane pad {{rowcolors}} " id="z{{ jad }}" role="tabpanel">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="wek" value="{{ jad }}" >
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                {% datafilters year  month  jad as datajan  %}
+                  <th>№</th>
+                  <th> ФИО </th>
+                  <input type="hidden" name="datavolues" value="{{ datajan|datavalue:'0' }}">
+                  <input type="hidden" name="datavolues" value="{{ datajan|datavalue:'6' }}">
+                  <th> <span class="label label-success ">ПН</span> <br> {{ datajan|datavalue:'0' }} </th>
+                  <th> <span class="label label-success ">ВТ</span> <br> {{ datajan|datavalue:'1' }} </th>
+                  <th> <span class="label label-success ">СР</span> <br> {{ datajan|datavalue:'2' }} </th>
+                  <th> <span class="label label-success ">ЧТ</span> <br> {{ datajan|datavalue:'3' }} </th>
+                  <th> <span class="label label-success ">ПТ</span> <br> {{ datajan|datavalue:'4' }} </th>
+                  <th> <span class="label label-primary ">СБ</span> <br> {{ datajan|datavalue:'5' }} </th>
+                  <th> <span class="label label-primary ">ВС</span> <br> {{ datajan|datavalue:'6' }} </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for h in cont %}
+                <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <th>{{ h.title }} </th>  
+                    <input type="hidden" name="sotr" value="{{ h.index }}">
+                    {% valuesofthe jad year h.index as vals %}
+                    <th> 
+                        <select class="form-control select2"  name="proz"> 
+                            <option value="{{ vals|datavalue:'0' }}">{{ vals|datavalue:'0' }} </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="О">О</option>
+                            <option value="К">К</option>
+                            <option value="Б/ЛВН">Б/ЛВН</option>
+                            <option value="Б">Б</option>
+                            <option value="АО">АО</option>
+                            <option value="В">B</option>
+                        </select>   
+                    </th>  
+                    <th> 
+                        <select class="form-control select2"  name="proz"> 
+                            <option value="{{ vals|datavalue:'1' }}">{{ vals|datavalue:'1' }} </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="О">О</option>
+                            <option value="К">К</option>
+                            <option value="Б/ЛВН">Б/ЛВН</option>
+                            <option value="Б">Б</option>
+                            <option value="АО">АО</option>
+                            <option value="В">B</option>
+                        </select>  
+                    </th>  
+                    <th> 
+                        <select class="form-control select2"  name="proz"> 
+                            <option value="{{ vals|datavalue:'2' }}">{{ vals|datavalue:'2' }} </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="О">О</option>
+                            <option value="К">К</option>
+                            <option value="Б/ЛВН">Б/ЛВН</option>
+                            <option value="Б">Б</option>
+                            <option value="АО">АО</option>
+                            <option value="В">B</option>
+                        </select>  
+                    </th>  
+                    <th> 
+                        <select class="form-control select2"  name="proz"> 
+                            <option value="{{ vals|datavalue:'3' }}">{{ vals|datavalue:'3' }} </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="О">О</option>
+                            <option value="К">К</option>
+                            <option value="Б/ЛВН">Б/ЛВН</option>
+                            <option value="Б">Б</option>
+                            <option value="АО">АО</option>
+                            <option value="В">B</option>
+                        </select>  
+                    </th>  
+                    <th>  
+                        <select class="form-control select2"  name="proz"> 
+                            <option value="{{ vals|datavalue:'4' }}">{{ vals|datavalue:'4' }} </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="О">О</option>
+                            <option value="К">К</option>
+                            <option value="Б/ЛВН">Б/ЛВН</option>
+                            <option value="Б">Б</option>
+                            <option value="АО">АО</option>
+                            <option value="В">B</option>
+                        </select>  
+                    </th>  
+                    <th>  
+                        <select class="form-control select2"  name="proz"> 
+                            <option value="{{ vals|datavalue:'5' }}">{{ vals|datavalue:'5' }} </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="О">О</option>
+                            <option value="К">К</option>
+                            <option value="Б/ЛВН">Б/ЛВН</option>
+                            <option value="Б">Б</option>
+                            <option value="АО">АО</option>
+                            <option value="В">B</option>
+                        </select>  
+                    </th>  
+                    <th> 
+                        <select class="form-control select2"  name="proz"> 
+                            <option value="{{ vals|datavalue:'6' }}">{{ vals|datavalue:'6' }} </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="О">О</option>
+                            <option value="К">К</option>
+                            <option value="Б/ЛВН">Б/ЛВН</option>
+                            <option value="Б">Б</option>
+                            <option value="АО">АО</option>
+                            <option value="В">B</option>
+                        </select>  
+                    </th>  
+
+                </tr>
+                {% endfor %}
+              </tbody>
+                
+              </table>
+            </div>
+
+            <div class="">
+              
+              <input type="submit" value="Утвердить " class="btn btn-group-lg btn-block btn-success" > 
+             
+            </div>
+            
+          </form>
+
+        </div>
+        </div>
+
+    </div>
+        {% endfor %}
+    
+    </div>
+        
+     
+        
+      
+    </div>
+  
+  </div>
+</div>
+
+
+<div class="col-6">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id ='products' aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myLargeModalLabel"> Сокращения  </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+       
+        <div class="modal-body">
+          
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" >
+              
+              <tbody >
+                <tr>
+                    <th >8</th>
+                    <td > Отработан полный рабочий день	</td>
+                </tr>
+                <tr>
+                    <th >О</th>
+                    <td  > Сотрудник находился в очередном отпуске	</td >
+                </tr>
+                <tr>
+                    <th > К </th>
+                    <td > Сотрудник был в командировке</td >
+                </tr>
+                <tr>
+                    <th >Б/ЛВН </th>
+                    <td  > Сотрудник находился в отпуске по болезни по листку временной нетрудоспособности	</td >
+                </tr>
+                <tr>
+                    <th > Б </th>
+                    <td  >Сотрудник находился в отпуске по болезни без оформления листка временной нетрудоспособности	 </td >
+                </tr>
+                <tr>
+                    <th > АО </th>
+                    <td  >Сотрудник находился в административном отпуске (без сохранения заработной платы) </td >
+                </tr>
+                <tr>
+                    <th > В </th>
+                    <td  > Выходной </td >
+                </tr>
+		
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          
+          <div class="pull-right">
+            <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+                </div>
+        </div>
+     
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    </div>  
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

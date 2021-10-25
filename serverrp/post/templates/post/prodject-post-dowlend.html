@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Письма </title>
+{% endblock %}
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load pres %}
+<!-- Стили -->
+{% block page_styles %}
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+
+<div class="col-12">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="box">
+        <div class="box-header">
+    <h4 class="box-title"> Письмо</h4>
+    <ul class="box-controls pull-right">
+      
+      <li><a class="box-btn-slide" href="#"></a></li>	
+    </ul>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body pb-0">
+    <form enctype="multipart/form-data" method="post"> 
+      {% csrf_token %}  
+    <div class="row">
+    <div class="col-md-4 col-12">
+      <div class="form-group">
+        <label>Компания:</label>
+        <input type="text" class="form-control my-colorpicker1 colorpicker-element " disabled value="{{ nom.title|nameofcomp }} " >
+      </div>
+      <div class="form-group">
+        <label>Номер:</label>
+        <input type="text" class="form-control my-colorpicker1 colorpicker-element" disabled value="{{ nom.title|prefnom }}  {{ nom.nomer }}">
+      </div>
+      <div class="form-group">
+        <label>Ответственный:</label>
+        <input type="text" class="form-control my-colorpicker1 colorpicker-element" disabled value="{{ nom.otvetstven }} ">
+      </div>
+      <!-- /.form-group -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-12">
+      <div class="form-group">
+        <label>Кому:</label>
+        <input type="text" class="form-control my-colorpicker1 colorpicker-element" disabled value="{{ nom.komy }}">
+      </div>
+      <div class="form-group">
+        <label>Описание:</label>
+        <input type="text" class="form-control my-colorpicker1 colorpicker-element" disabled value="{{ nom.ochem }} ">
+      </div>
+      {{  form.trec|as_crispy_field }}
+      <!-- /.form-group -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-12">
+      <div class="form-group">
+            {{  form.filefild|as_crispy_field }}
+      </div>
+      <!-- /.form-group -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12">
+      <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+    </div>
+    
+    <!-- /.col -->
+    </div>
+    
+    </form>
+    <!-- /.row -->
+  </div>
+  <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
+{% block page_staticjsandcss %}
+ <!-- Bootstrap WYSIHTML5 -->
+ 
+ {% endblock %}

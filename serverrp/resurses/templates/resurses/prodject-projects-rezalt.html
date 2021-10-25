@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Ресурсы </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  <form action="" method="post">
+  
+  {% csrf_token %} 
+  <div class="box">
+   
+    <div class="box-header with-border">
+      <form action="" method="post">
+        {% csrf_token %}  
+      <h4 class="box-title"> <input type="submit" value="Ресурсы за {{ itm.title }}  (Скачать)" class="btn  btn-primary"> </h4> 
+      </form>
+      <ul class="box-controls pull-right"> 
+        <li><a class=""  href="{%  url 'resurses:allotd' pk=itm.id %}">Матрица</a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Проект</th>
+                  <th>Система</th>
+                  <th>Этап </th>
+                  <th>ФИО</th>
+                  <th>Должность</th>
+                  <th>Отдел</th>
+                  <th>Потраченно </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for res in cont %}
+                <tr>
+                  <td> {{ forloop.counter }} </td>
+                  <td> {{ res.projects.title }} </td>
+                  <td> {% for u in res.projects.products.all %}  {{ u.title }} {% empty %} -  {% endfor %} </td>
+                  <td> {{ res.itap.title|truncatechars:8  }} </td>
+                  <td> {{ res.cotrud.title }} </td>
+                  <td> {{ res.cotrud.doljnost }} </td>
+                  <td> {{ res.cotrud.ondel.title }} </td>
+                  <td> {{ res.title }} 
+                  
+                  </td>
+                </tr>
+                
+                {% endfor %}
+              </tbody>
+                
+              </table>
+            </div>
+
+
+
+        </div>
+      </div>
+      
+    </div>
+  
+  </div>
+ 
+</form>
+</div>
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

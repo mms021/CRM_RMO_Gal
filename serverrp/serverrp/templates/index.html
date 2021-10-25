@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+{% load static %}
+{% load resors %}
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Makeev Max">
+    <link rel="icon"  href="{% static "projects/pmo.png" %}" >
+
+
+
+	{% block page_title %}
+    {% endblock %}
+	
+	{% block page_styles %}
+    {% endblock %}
+    
+	<!-- Bootstrap 4.0-->
+	<link rel="stylesheet"  href="{% static "projects/assets/vendor_components/bootstrap/dist/css/bootstrap.css" %}" type="text/css">
+	
+	<!-- Bootstrap extend-->
+	<link rel="stylesheet" href="{% static "projects/css/bootstrap-extend.css" %}" type="text/css" >
+	
+	<!-- theme style -->
+	<link rel="stylesheet" href="{% static "projects/css/master_style.css" %}" type="text/css">
+	
+	<!-- Materiel Admin skins -->
+	<link rel="stylesheet" href="{% static "projects/css/skins/_all-skins.css" %}" type="text/css">
+
+  </head>
+
+<body class="hold-transition skin-black sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">	  	
+  	<!-- Sidebar toggle button-->
+	  <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+		<span class="sr-only">Navigation</span>
+	  </a>
+    <!-- Logo -->
+    <a href="{% url 'projects:dashbord' %}" class="logo">
+      <!-- mini logo -->
+	  
+      <!-- logo-->
+      <span class="logo-lg">
+		  <img src="{% static "projects/images/gal1.png" %}"  alt="logo" class="light-logo">
+	  	  <img src="{% static "projects/images/gal1.png" %}"  alt="logo" class="dark-logo">
+	  </span>
+    </a>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">	  
+	  <div class="ml-10 app-menu">
+		<ul class="header-megamenu nav">
+			<li class="btn-group nav-item">
+				<a href="#" class="nav-link rounded" data-provide="fullscreen" title="Full Screen">
+					<i class="mdi mdi-crop-free"></i>
+				</a>
+			</li>
+			{% if user.is_staff %}	  
+			<li class="btn-group nav-item">
+				<a href="#" class="nav-link rounded" data-toggle="dropdown" aria-expanded="false">
+					<i class="nav-link-icon mdi mdi-view-dashboard text-white mx-5"> </i>
+					Меню
+					<i class="fa fa-angle-down ml-2"></i>
+				</a>
+				<div class="dropdown-menu dropdown-grid">
+					<div class="dropdown-mega-menu">
+						<div class="row">
+							<div class="col-lg-4 col-12">
+								<ul class="nav flex-column">
+									<li class="nav-item-header nav-item">
+										Админ
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'projects:all' %}" class="nav-link">
+											<i class="nav-link-icon fa fa-inbox">
+											</i>
+											<span>
+												Отчеты 
+											</span>
+										</a>
+									</li>
+									<li class="nav-item"> 
+											<a href="{% url 'projects:allprod' %}" class="nav-link ">
+												<i class="nav-link-icon fa fa-dashboard">
+												</i>
+												<span>
+													Паспорта
+												</span>
+											</a>
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'projects:pmo' %}" class="nav-link">
+											<i class="nav-link-icon fa fa-book">
+											</i>
+											<span>
+												РМО
+											</span>
+											
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'projects:otchetnew' %}" class="nav-link">
+											<i class="nav-link-icon fa fa-picture-o">
+											</i>
+											<span>
+												Отчет
+											</span>
+										</a>
+									</li>
+									
+								</ul>
+							</div>
+							<!-- -->
+							<div class="col-lg-4 col-12 bx-1">
+								<ul class="nav flex-column">
+									<li class="nav-item-header nav-item">
+										Управление ресурсами 
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'resurses:mywokrcrete' %}" class="nav-link">
+											Добавить сотрудника 
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'resurses:myworcersall' %}" class="nav-link">
+											Все сотрудники 
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'glavarp:cotrudniki' %}" class="nav-link"> Загрузить сотрудников </a>
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'resurses:resorsmatcofall' %}" class="nav-link">Ресурсы  </a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-12">
+								<ul class="nav flex-column">
+									<li class="nav-item-header nav-item">
+										Настройки
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'glavarp:doc' %}" class="nav-link">Создать новый проект 
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="#" class="nav-link"> Добавить контакт
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'projects:dashpass' %}" class="nav-link">Отчет общий
+											
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{% url 'glavarp:admins' %}" class="nav-link">Админ панель.
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			{% endif %}
+			
+		</ul> 
+	  </div>
+		
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+		  
+		  <li class="search-box">
+            <a class="nav-link hidden-sm-down" href="#"><i class="ion ion-person"></i> {{ user.first_name }} </a>
+            
+		  </li>	
+		  
+		  <!-- User Account-->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="{% static "projects/images/user5-128x128.jpg" %}"  class="user-image rounded-circle b-2" alt="User Image">
+            </a>
+            <ul class="dropdown-menu scale-up">
+              <!-- Menu Body -->
+              <li class="user-body bt-0">
+                <div class="row no-gutters">
+                  <div class="col-12 text-left">
+                    <a href="#"><i class="ion ion-person"></i> Профиль</a>
+                  </div>
+				  
+				<div role="separator" class="divider col-12"></div>
+				  <div class="col-12 text-left">
+						{% if user.is_authenticated %}
+						<a href= "{% url 'projects:logout' %}"> <i class="fa fa-power-off"></i>Выйти</a>
+						{% endif %}
+						{% if user.is_anonymous  %}
+						<a href= "{% url 'projects:ligin' %}"> <i class="fa fa-power-off"></i>Войти</a>
+						{% endif %}
+					
+                  </div>				
+                </div>
+                <!-- /.row -->
+              </li>
+            </ul>
+          </li>	  
+      
+		
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar-->
+    <section class="sidebar">
+      
+      <!-- sidebar menu-->
+      <ul class="sidebar-menu" data-widget="tree">
+		  
+        <li>
+          <a href="{% url 'projects:dashbord' %}" hidden>
+            <i class="ti-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>				  
+
+        <li class="header">Управление проектами</li>	
+	  
+		<li>
+          <a href="{% url 'projects:myprod' %}">
+            <i class="ti-comments"></i>
+			<span>Проекты</span>
+			{% if user.first_name|projcount != '0' %}
+			  <span class="pull-right-container">
+				<small class="label pull-right bg-warning">{{ user.first_name|projcount }}</small>
+			  </span>
+			  {% endif %}
+          </a>
+		</li>	
+		<li>
+			<a href="{% url 'preseil:presailall' %}">
+			  <i class="ti-light-bulb"></i>
+			  <span>Пресейл</span>
+			  {% if user.username|presailcount != '0' %}
+			  <span class="pull-right-container">
+				<small class="label pull-right bg-warning">{{ user.username|presailcount }}</small>
+			  </span>
+			  {% endif %}
+			</a>
+		  </li>		  
+		<li>
+		<li>
+		<a href="{% url 'projects:views' %}">
+			<i class="ti-calendar"></i>
+			<span> Статус  </span>
+		</a>
+		</li>		  
+		
+		  <li class="treeview">
+			<a href="#">
+			  <i class="ti-panel"></i> <span>Ресурсы</span>
+			  <span class="pull-right-container">
+				<i class="fa fa-caret-down pull-right"></i>
+			  </span>
+			</a>
+			<ul class="treeview-menu" style="display: none;">
+			  <li><a href="{% url 'resorsplaning:plani'%}">План</a></li> 
+			  <li><a href="{% url 'resurses:allresorses'%}">Факт</a></li>
+			  <li><a href="{% url 'ushetvremeni:vrem' pk=0 %}">Учет времени</a></li>
+			</ul>
+		  </li>  
+		  <li class="treeview">
+			<a href="#">
+			  <i class="ti-id-badge"></i> <span>Контакты</span>
+			  <span class="pull-right-container">
+				<i class="fa fa-caret-down pull-right"></i>
+			  </span>
+			</a>
+			<ul class="treeview-menu" style="display: none;">
+			  <li><a href="{% url 'resurses:allcontactscompani'%}">Контакты</a></li>
+			  <li><a href="{% url 'resurses:allcompanis'%}">Заказчики</a></li>
+			  <li><a href="{% url 'resurses:myworcersall' %}"> Сотрудники</a> </li>
+			</ul>
+		  </li>
+		  <!-- 
+		  <li class="header">  </li>	
+		  -->  
+		  <li> 
+			<a href="{% url 'resurses:myplans'%}">
+			  <i class=" ti-clipboard"></i>
+			  <span>Задачи</span>
+			  {% if user.username|mailbox != '0' %}
+			  <span class="pull-right-container">
+				<small class="label pull-right bg-warning">{{ user.username|mailbox }}</small>
+			  </span>
+			  {% endif %}
+			</a>
+		  </li>	
+		<li>
+			<a href="{% url 'post:postpage'%}">
+				  <i class="ti-email"></i>
+				  <span>Письма</span>
+			</a>
+		</li>
+		<li>
+			<a href="{% url 'bazaznaniy:main'%}" >
+				  <i class="ti-bookmark-alt"></i>
+				  <span>База знаний</span>
+			</a>
+		</li>		  
+
+		{% if user.is_staff %}	  
+		<li class="header">Контроль </li>	
+		<li>
+          <a href="{% url 'projects:otchetnew' %}">
+            <i class="ti-blackboard"></i>
+			<span>Отчет</span>
+          </a>
+		</li>
+		<li>
+          <a href="{% url 'projects:pmo' %}">
+            <i class=" ti-settings"></i>
+			<span>РМО</span>
+          </a>
+		</li>
+	
+		{% endif %}		  		
+		
+		{% if user.is_authenticated %}  
+		{% block page_slader %}
+    	{% endblock %}
+		{% endif %}
+      </ul>
+    </section>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+	  
+    <!-- Main content -->
+    <section class="content">	
+		<div class="container-full">
+				{% block page_contecst_anon %}
+
+				{% endblock %}
+
+				{% if user.is_authenticated %}   	
+				{% block page_contecst %}
+
+				{% endblock %}
+				{% endif %}
+				{% if user.is_anonymous  %}
+						<a href= "{% url 'projects:ligin' %}" class="btn btn-lg btn-primary btn-block">>Войти</a>
+				{% endif %}
+		</div>	  		      
+	</section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right d-none d-sm-inline-block">
+        <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+		  <li class="nav-item">
+			<a href="mailto:makeev.m@galaktika.ru" class="nav-link" target="_blank">Поддержка</a>
+		  </li>
+		</ul>
+    </div>
+	<div class="col-lg-6">
+			<div class="copyright text-center  text-lg-left  text-muted">
+			  &copy; 2020 <a href="mailto:makeev.21@mail.ru" class="font-weight-bold ml-1" target="_blank">Макеев М.С. </a>
+			</div>
+		  </div>
+  </footer>
+</div>
+
+  	
+	
+	<!-- jQuery 3 --> 
+	<script src="{% static "projects/assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js" %}" ></script>
+	<!-- popper -->
+	<script src="{% static "projects/assets/vendor_components/popper/dist/popper.min.js" %}" ></script>
+	<!-- Bootstrap 4.1-->
+	<script src="{% static "projects/assets/vendor_components/bootstrap/dist/js/bootstrap.js" %}" ></script>	
+	<script src="{% static "projects/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js" %}" ></script>
+	<!-- FastClick -->
+	<script src="{% static "projects/assets/vendor_components/fastclick/lib/fastclick.js" %}" ></script>
+	<!-- fullscreen -->
+	<script src="{% static "projects/assets/vendor_components/screenfull/screenfull.js" %}" ></script>
+	
+	
+    <script src="{% static "projects/assets/vendor_components/fusioncharts-suite-xt/js/fusioncharts.js" %}" ></script>
+    <script src="{% static "projects/assets/vendor_components/fusioncharts-suite-xt/js/themes/fusioncharts.theme.fusion.js" %}" ></script>
+	<script src="{% static "projects/assets/vendor_components/apexcharts-bundle/irregular-data-series.js" %}" ></script>
+	<script src="{% static "projects/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js" %}" ></script>
+		
+	<!-- Materiel Admin App -->
+	<script src="{% static "projects/js/template.js" %}" ></script>
+
+	{% block page_staticjsandcss %}
+	{% endblock %}
+
+	
+</body>
+</html>

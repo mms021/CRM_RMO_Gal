@@ -1,0 +1,110 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Контакты </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+<div class="">
+  <div class="box">
+    <div class="box-body ">
+<div class="flexbox align-items-center p-15">
+<div class="flexbox align-items-center">
+  <div class="custom-control custom-checkbox pl-0">
+  <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="ion ion-android-checkbox-outline-blank"></i></button>
+  </div>
+
+  <span class="divider-line mx-1"></span>
+
+ 
+  <div class="dropdown d-none d-lg-block">
+  <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Компании</button>
+  <div class="dropdown-menu">
+    {% for i in comp %}
+    <a class="dropdown-item" href="{% url 'resurses:companicontacts' pk=i.id %} ">{{ i.title}}</a> 
+   
+    {% endfor %}
+  </div>
+  </div>
+</div>
+
+<div>
+  <div class="lookup lookup-circle lookup-right">
+  <input type="text" data-provide="media-search">
+  </div>
+</div>
+</div>
+
+<div class="media-list media-list-divided media-list-hover">
+{% for res in cont %}
+<div class="media align-items-center">
+  <div class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input">
+  </div>
+
+  
+
+  
+
+  <img class="avatar" src="{% static "projects/images/avatar/1.jpg" %}" alt="...">
+
+  <div class="media-body text-truncate">
+    <h6><a href="{% url 'resurses:contactsname' pk=res.index  %}" >  {{ res.title }} </a> </h6>
+    <span> {{ res.doljnost }}  </span> <br>
+    <small>
+    <span>{{ res.mail }} </span>
+    <span class="divider-dash">{{ res.telnomder }}</span>
+    </small>
+  </div>
+  </a>
+  
+  <ul class="list-inline">
+  <li><a class="hover-secondary" href="{% url 'resurses:companicontacts' pk=res.compan.id %}"><i class="fa fa-industry"></i>  {{ res.compan.title }}</a></li>
+  
+  </ul>
+  
+  <div class="dropdown">
+  <a class="text-lighter" href="#" data-toggle="dropdown"><i class="ti-more-alt rotate-90"></i></a>
+  <div class="dropdown-menu dropdown-menu-right">
+    <a class="dropdown-item" href="{% url 'resurses:companicontacts' pk=res.compan.id %}"><i class="fa fa-fw fa-industry"></i> Компания</a>
+    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-commenting"></i> Message</a>
+    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-envelope"></i> Email</a>
+    
+  </div>
+  </div>
+</div>
+{% endfor %}
+
+</div>
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /. box -->
+</div>
+
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

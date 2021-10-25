@@ -1,0 +1,311 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Пресейл </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pres %}
+<!-- Стили -->
+{% block page_styles %}
+
+<style>
+
+  #bly {
+    width: 12px;
+    height: 12px;
+    background: #5A8DEE;
+  }
+  #green {
+    width: 12px;
+    height: 12px;
+    background: #39DA8A;
+  }
+  
+  </style>
+    
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="box">
+        <div class="box-header">
+            <h4 class="box-title">Пресейл</h4>
+            <div class="box-controls pull-right">
+              <div class="lookup lookup-circle lookup-right">
+                <input type="text" name="s">
+              </div>
+            </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body ">
+        <div class="row">	
+          <div class="col-12">
+          <div class="box">
+              <div class="box-body">
+                <div class="clearfix">
+                  <button type="button" class="btn btn-purple mb-5">Знакомство <br> {{ in|colof:'A' }} </button>
+                  <button type="button" class="btn btn-primary mb-5">Экспресс обследование <br> {{ in|colof:'B' }}</button>
+                  <button type="button" class="btn btn-cyan mb-5">Согласование КП  <br> {{ in|colof:'C' }}</button>
+                  <button type="button" class="btn btn-info mb-5">Подготовка документации <br> {{ in|colof:'D' }}</button>
+                  <button type="button" class="btn btn-default mb-5">Конкурсные процедуры <br> {{ in|colof:'E' }}</button>
+                  <button type="button"  class="btn btn-outline btn-warning mb-5">Итог: <br> {{ in|colof:'J' }}</button>
+                
+                </div>
+              </div>
+              <!-- /.box-body -->
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-12">
+            <div class="box">
+              <div class="box-header">
+                <h4 class="box-title">Количество пресейлов по менеджерам</h4>
+              </div>
+              <div class="box-body text-center">
+                <canvas id="chartStacked1" height="150"></canvas>
+              </div>
+              <div class="box-body">
+                <table >
+                  <tr>
+                    <td > <div id="bly"></div> </td>  <td>&#160; На паузе &#160;&#160;</td> <td> <div id="green"></div></td> <td> &#160; Активный  </td>
+                  </tr>
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->			
+          </div>  
+      
+          <div class="col-lg-6 col-12">
+            <div class="box">
+              <div class="box-header">
+                <h4 class="box-title">Количество пресейлов по продуктам</h4>
+              </div>
+              <div class="box-body text-center">
+                <canvas id="chartStacked2" height="150"></canvas>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->			
+          </div> 
+      
+          <div class="col-lg-6 col-12">
+          <div class="box">
+            <div class="box-header">
+              <h4 class="box-title">По статусам</h4>
+            </div>
+
+            <div class="box-body chart-responsive">
+                <div class="chart" id="morrisDonut2" style="height: 300px;"></div>
+              </div>
+          </div>
+       </div>
+       <div class="col-lg-6 col-12">
+        <div class="box">
+          <div class="box-header">
+            <h4 class="box-title">По источникам привлечения</h4>
+          </div>
+
+          <div class="box-body chart-responsive">
+              <div class="chart" id="morrisDonut3" style="height: 300px;"></div>
+            </div>
+        </div>
+     </div>
+     <div class="col-12">
+      <div class="box">
+        <div class="box-header">
+          <h4 class="box-title">Пресейлы</h4>
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            <table id="example5" class="table table-bordered table-striped" style="width:100%">
+              <thead>
+              <tr>
+                <th>№</th>
+                <th width='20%' >Проект</th>
+                <th width='5%'> РП</th>
+                <th width='60%'>Статус </th>
+                <th>Продукт </th>
+                <th>Сумма </th>
+                <th>Контрактация </th>
+              </tr>
+              </thead>
+              <tbody> 
+              {% for itm in press %}
+              <tr>
+                <td> {{ forloop.counter }}</td>
+                <td><a href="{% url 'preseil:preselproj' pk=itm.id %}">{{ itm.title }}</a> </td>
+                <td>{{ itm.menedjer.first_name }} </td>
+                <td> {{  itm.id|otchetpres  }}
+                </td>
+                <td> {% for u in itm.products.all %}  {{ u.title }} {% empty %} -  {% endfor %}</td>
+                <td> {{ itm.summa }}</td>
+                <td> {{ itm.kontrok }} </td>
+                
+              </tr>
+              
+              {% endfor %}
+            </tbody>
+            </table>
+          </div>
+
+
+
+          </div>
+      </div>
+   </div>
+
+        
+        </div>
+      </div>
+      <!-- /.box-body -->
+  </div>
+
+
+{% endblock %}
+
+
+{% block page_staticjsandcss %}
+
+<script src="{% static "projects/assets/vendor_components/jquery-knob/js/jquery.knob.js"%}"></script>
+	
+<!-- Sparkline -->
+<script src="{% static "projects/assets/vendor_components/jquery-sparkline/dist/jquery.sparkline.min.js"%}"></script>
+
+
+<!-- Materiel Admin for Chart purposes -->
+
+<script src="{% static "projects/assets/vendor_components/chart.js-master/Chart.bundle.js"%}"></script>
+<script src="{% static "projects/assets/vendor_components/chart.js-master/utils.js"%}"></script>
+
+<!-- SlimScroll -->
+<script src="{% static "projects/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"%}"></script>
+
+
+<!-- Morris.js charts -->
+<script src="{% static "projects/assets/vendor_components/raphael/raphael.min.js"%}"></script>
+<script src="{% static "projects/assets/vendor_components/morris.js/morris.min.js"%}"></script>
+
+
+<!-- Materiel Admin for inline Chart purposes -->
+<script src="{% static "projects/js/pages/widget-inline-charts.js"%}"></script>
+
+<script src="{% static "projects/assets/vendor_components/datatable/datatables.min.js"%}"></script>
+	
+<script src="{% static "projects/js/pages/data-table.js"%}"></script>
+<script src="{% static "projects/js/pages/project-table.js"%}"></script>
+
+
+<script>
+
+$( document ).ready(function() {
+    "use strict";
+	
+  var ctx7 = document.getElementById('chartStacked1');
+  new Chart(ctx7, {
+    type: 'bar',
+    data: {
+      labels: {{fio|safe}},
+      datasets: [{
+        data: {{fio|active:'A'}},
+        backgroundColor: '#39DA8A',
+        borderWidth: 1,
+        fill: true
+      },{
+        data: {{fio|active:'B'}},
+        backgroundColor: '#5A8DEE',
+        borderWidth: 1,
+        fill: true
+      }]
+    },
+    options: {
+      legend: {
+        display: false,
+          labels: {
+            display: false
+          }
+      },
+      scales: {
+        yAxes: [{
+          stacked: true
+        }],
+        xAxes: [{
+          stacked: true
+        }]
+      }
+    }
+  });
+
+  var ctx8 = document.getElementById('chartStacked2');
+  new Chart(ctx8, {
+    type: 'horizontalBar',
+    data: {
+      labels: [{% for u in prod.all %}  '{{ u.title }}',  {% endfor %}],
+      datasets: [{
+        data: [{% for u in prod.all %}  {{ u.title|product }},  {% endfor %}],
+        backgroundColor: '#5A8DEE',
+        borderWidth: 1,
+        fill: true
+      }]
+    },
+    options: {
+      legend: {
+        display: false,
+          labels: {
+            display: false
+          }
+      },
+      scales: {
+        yAxes: [{
+          stacked: true
+        }],
+        xAxes: [{
+          stacked: true
+        }]
+      }
+    }
+  });
+});
+
+</script>
+
+<script>
+  
+  $(function(){
+  'use strict';
+  new Morris.Donut({
+    element: 'morrisDonut2',
+    data: [
+    {label: "Активный", value: {{fio|statusof:'A'}} },
+    {label: "На паузе", value: {{fio|statusof:'B'}} },
+      
+    ],
+    colors: ['#39DA8A','#5A8DEE','#FDAC41','#FF5B5C'],
+    resize: true
+  });
+
+  new Morris.Donut({
+    element: 'morrisDonut3',
+    data:[ 
+      {{  fio|privleth|safe }}
+     ],
+    colors: ['#39DA8A','#5A8DEE','#FDAC41','#FF5B5C'],
+    resize: true
+  });
+});  
+  
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Отчет по Проекту </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+        <div class="box">
+              <div class="box-header">
+            <h4 class="box-title">Загрузить контакты </h4>
+           
+              
+          </div>
+          <!-- /.box-header -->
+
+          <div class="box-body wizard-content">
+              <form enctype="multipart/form-data" action="" method="post" class="tab-wizard vertical wizard-circle">
+                {% csrf_token %}
+                  <!-- Step 1 -->
+                  <h6>Контакты </h6>
+                  <section>
+                      <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    
+                                    {{ form }}</div>
+                            </div>
+                        </div>
+                  </section>
+                  <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+              </form>
+          </div>
+          <!-- /.box-body -->
+        </div>
+  
+
+{% endblock %}

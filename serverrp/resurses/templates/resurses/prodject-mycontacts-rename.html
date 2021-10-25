@@ -1,0 +1,151 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Контакты </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+<script>
+  function addRowdoc(id){
+          var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+          var row = document.createElement("TR")
+  
+          var td0 = document.createElement("TD")
+          var inp0 = document.createElement("input")
+          inp0.type = "hidden"
+          inp0.name = "iddd"
+          inp0.value = id
+          td0.appendChild(inp0)
+  
+          var td1 = document.createElement("TD")
+          var inp1 = document.createElement("input")
+          inp1.type = "text"
+          inp1.name = "fio"
+          inp1.class = "form-control"
+          td1.appendChild(inp1)
+  
+          var td2 = document.createElement("TD")
+          var inp2 = document.createElement("input")
+          inp2.type = "text"
+          inp2.name = "doljn"
+          inp2.class = "form-control"
+          td2.appendChild(inp2)
+  
+          var td3 = document.createElement("TD")
+          var inp3 = document.createElement("input")
+          inp3.type = "text"
+          inp3.name = "mailnew"
+          inp3.class = "form-control"
+          td3.appendChild(inp3)
+
+          var td4 = document.createElement("TD")
+          var inp4 = document.createElement("input")
+          inp4.type = "text"
+          inp4.name = "telnomnew"
+          
+          td4.appendChild(inp4)
+
+          
+          row.appendChild(td0)
+          row.appendChild(td1);
+          row.appendChild(td2);
+          row.appendChild(td3);
+          row.appendChild(td4);
+          tbody.appendChild(row);
+        }
+  </script>
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  {% for int in otdel %}
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"> {{ int.title }}</h4>
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+        <div class="row">
+        
+        <div class="col-xl-12 col-12">	
+          <form action="" method="post">
+            {% csrf_token %} 
+            <div class="table-responsive">
+              
+              <table class="table table-hover mb-0">
+                <tbody>
+                <tr>
+                  <th>Предприятие <input type="hidden" name="otdelid" value="{{ int.id }}"></th>
+                  <td>  <input type="text" name="otdeltitle" value="{{ int.title }}" class="form-control"> </td>
+                </tr>
+                <tr>
+                  <th> Тип  </th>
+                  <td>  
+                    <select name="otdellevel" class="form-control select2" value="{{ int.level }}"> 
+                      <option value="{{ int.level }}"> {{ int.level }}</option>
+                      <option value="Заказчик">Заказчик</option>
+                      <option value="Субподрядчик">Субподрядчик</option>
+                      <option value="Генеральный заказчик">Генеральный заказчик</option>   
+                  </select>  
+
+                  </td>
+                </tr>
+                <tr>
+                  <th>Описание  </th>
+                  <td>  <input type="text" name="otdelopisanie" value="{{ int.opisanie }}" class="form-control">  </td>
+                </tr>
+                
+                </tbody>
+              </table>
+              <div class="box-header">
+                    <button onclick="addRowdoc('{{int.id}}');return false;" class="btn btn-sm btn-primary"> Добавить контакт</button>
+              </div>
+              <table class="table table-hover mb-0" id="{{int.id}}">
+                <tbody>
+                <tr>
+                  <th>№</th>
+                  <th>ФИО</th>
+                  <th>Должность</th>
+                  <th>Почта</th>
+                  <th>Телефон</th>
+                </tr>
+                {% for res in cont %}
+                {% if res.ondel.title == int.title %}
+                <tr>
+                  <td> <input type="hidden" value="{{ res.id }}" name="contid">  </td>
+                  <td> <input type="text" value="{{ res.title }}" class="form-control" name="conttitle">  </td>
+                  <td> <input type="text" value="{{ res.doljnost }}" class="form-control" name="contdoljnost"> </td>
+                  <td> <input type="text" value="{{ res.mail }}" class="form-control" name="contmail">  </td>
+                  <td> <input type="text" value="{{ res.telnomder }}" class="form-control" name="conttelnomder"> </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                
+                </tbody>
+              </table>
+            </div>
+            <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block">
+          </form>   
+        </div>
+      
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

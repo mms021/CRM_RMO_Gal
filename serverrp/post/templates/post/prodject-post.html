@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Письма </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+<link rel="stylesheet" href="{% static  "projects/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css" %}">
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+        <div class="box">
+              <div class="box-header">
+            <h4 class="box-title">Письма</h4>
+           
+              
+          </div>
+          <!-- /.box-header -->
+
+          <div class="box-body wizard-content">
+              
+              <form  method="post" class="tab-wizard vertical wizard-circle">
+                {% csrf_token %}  
+                  <!-- Step 1 -->
+                  <h6>  Письмо </h6>
+                 
+                      <div class="row">
+                          
+                          <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="lastName2"> От  </label>
+                                <input type="text" class="form-control" > </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label for="lastName2"> Наименование предприятия</label>
+                                  <input type="text" class="form-control" > </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="lastName2"> Кому (Должность)</label>
+                                <input type="text" name="komy" class="form-control" > </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label for="lastName2"> Кому (ФИО)</label>
+                                  <input type="text" name="fio" class="form-control" > </div>
+                          </div>
+                          
+                          <div class="box-body">
+                           
+                              <textarea class="textarea" name="trxt" placeholder="Place some text here"
+                                        style="width: 100%; height: 400px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            
+                          </div>
+                      </div>
+                      
+                  <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+              </form>
+          </div>
+          <!-- /.box-body -->
+        </div>
+  
+
+{% endblock %}
+
+
+
+
+{% block page_staticjsandcss %}
+ <!-- Bootstrap WYSIHTML5 -->
+ 
+ <script src="{% static "projects/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js" %}"></script>
+
+ <script>
+    $(function () {
+    "use strict";
+
+    
+	//bootstrap WYSIHTML5 - text editor
+	$('.textarea').wysihtml5();		
+	
+  });
+ </script>
+ {% endblock %}

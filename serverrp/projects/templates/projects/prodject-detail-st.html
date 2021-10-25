@@ -1,0 +1,133 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Отчет по Проекту </title>
+{% endblock %}
+
+{% load static %}
+<!-- Стили -->
+{% block page_styles %}
+
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const areas = document.querySelectorAll("#textar"); // 
+            for (const area of areas) {
+                area.style.height = "1px";
+                area.style.height = (4 + area.scrollHeight) + "px";
+            }
+        })
+</script>
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+<li class="header">Проекты</li>  
+		  
+        <li class="treeview">
+          <a href="#">
+            <i class="ti-palette"></i>
+            <span>Мои проекты</span>
+            <span class="pull-right-container">
+              <i class="fa fa-caret-down pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+
+            <li><a href="{% url 'projects:detail' pk=projects.id %}"><i class="fa fa-circle-thin"></i>{{ itm.title }}</a></li>
+		
+          </ul>
+</li>
+
+{% endblock %}
+
+<!-- Основной контент -->
+{% block page_contecst %}
+<form method="post">
+        {% csrf_token %}    
+
+<div class="">
+<div class="">
+<table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" cols='3'>Проект</th>
+            <th scope="col" width="30">Этап</th>
+            <th scope="col">Дата завершения</th>
+            <th scope="col" width="10%">Акт </th>
+            <th scope="col" width="10%">Оплата </th>
+            <th scope="col" width="40%">Комментарий</th>
+            
+          </tr>
+        </thead>
+        <tbody >
+
+            <tr > 
+                <td rowspan="{{ nom }}">
+                {{ projects.title }} <br> PП: {{ projects.rpproecta }} <br> {{ projects.nomerdogovora }}</td> 
+                
+                {% for itms in itap|dictsort:"id" %}
+                             
+                        <td> {{ itms.title }} <br>{{ itms.itapnaim|truncatechars:50  }}</td> 
+                        
+                        <td> {{ itms.datastop|date:"d.m.Y"  }}</td> 
+
+                        <td> 
+                          <select name="act" class="form-control select2"  value="{{ itms.act }}"> 
+                              <option value="{{ itms.act}}">{{ itms.act }}</option>
+                              <option value="В работе">В работе</option>
+                              <option value="Подписан">Подписан</option>
+                              <option value="Сформирован">Сформирован</option>
+                              <option value="На подписании">На подписании</option>
+                              <option value="Не начат">Не начат</option>
+                          </select>
+                          
+                      </td>
+                      <td> 
+                          <select name="oplata" id="{{ itms.id }}" class="form-control select2" onchange="mifync('{{ itms.id }}')" value="{{ itms.oplata }}"> 
+                              <option value="{{ itms.oplata }}" >{{ itms.oplata }}</option>
+                              <option value="В работе">В работе</option>
+                              <option value="Задолженность">Задолженность</option>
+                              <option value="Оплачен">Оплачен</option>
+                              <option value="Ожидаем">Ожидаем</option>
+                              <option value="Не начат">Не начат</option>
+                          </select>    
+                      </td>
+                        <td> 
+                                {{ itms.komentrp }}
+                            
+                        <br><strong> Комментарий Ирины Степановой: </strong>
+                         <input type="hidden" name="idid" value="{{ itms.id }}">   
+                        <textarea type="text" class="form-control" name = 'komentstep' cols="40" onchange="textAreaAdjust(this)" spellcheck="true" id = 'textar' >{{ itms.komentstep }}</textarea>
+                        {% if itms.oplata == "Задолженность" %}
+                        <input type="text"  id='input-{{ itms.id }}'  class="form-control" placeholder="Задолженность" value="{{ itms.zadolkjnost }}" name ='zadolkjnost' style="display: block;" >
+                        {% else %}
+                        <input type="text" id='input-{{ itms.id }}' class="form-control" placeholder="Задолженность" value="{{ itms.zadolkjnost }}" name ='zadolkjnost' style="display: none;"  >
+                        {% endif %}
+                        </td>
+                    </tr> 
+                    
+                 {% endfor %}
+
+        </tbody>
+      </table>
+</div>
+</div>
+
+      <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+</form>
+{% endblock %}
+
+{% block page_staticjsandcss %}
+<script>
+    function mifync(id) {
+        if ($("#" + id).val() === "Задолженность") {
+            $("#input-" + id)[0].style["display"] = "block";
+        }
+        else {
+            $("#input-" + id)[0].style["display"] = "none";
+        }
+    }
+</script>
+{% endblock %}

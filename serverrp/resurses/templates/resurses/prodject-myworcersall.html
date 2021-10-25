@@ -1,0 +1,141 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Команда проекта </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+<style>
+
+  .containerdert {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+}
+
+.containerdert input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmarkdert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.containerdert:hover input ~ .checkmarkdert {
+  background-color: #ccc;
+}
+
+.containerdert input:checked ~ .checkmarkdert {
+  background-color: #2196F3;
+}
+
+.checkmarkdert:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.containerdert input:checked ~ .checkmarkdert:after {
+  display: block;
+}
+
+.containerdert .checkmarkdert:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"> Сотрудники </h4> 
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <tbody>
+                <tr>
+                  
+                  <th>№</th>
+                  <th>ФИО</th>
+                  <th>Должность</th>
+                  <th>Отдел</th>
+                  <th>Почта</th>
+                  <th>Телефон</th>
+                </tr>
+                {% for res in cont %}
+                
+                <tr>
+                  <td> {{ forloop.counter }} </td>
+                  <td> <a href="{% url 'resurses:mywokrcrename' pk=res.index %}">{{ res.title }}</a>  </td>
+                  <td> {{ res.doljnost }} </td>
+                  <td> <a href="{% url 'resurses:myotdel' pk=res.ondel.id %}" >{{ res.ondel.title }}</a> </td> 
+                  <td> {{ res.mail }} </td>
+                  <td> {{ res.telnomder }} </td>
+                </tr>
+                
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

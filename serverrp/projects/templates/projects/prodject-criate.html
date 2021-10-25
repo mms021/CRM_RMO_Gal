@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Отчет по Проекту </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+        <div class="box">
+              <div class="box-header">
+            <h4 class="box-title">Создать новый проект</h4>
+           
+              
+          </div>
+          <!-- /.box-header -->
+
+          <div class="box-body wizard-content">
+              <form action="#" class="tab-wizard vertical wizard-circle">
+                  <!-- Step 1 -->
+                  <h6>Информация по договору</h6>
+                  <section>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="firstName1">Название проекта:</label>
+                                  <input type="text" class="form-control" id="firstName1"> </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="lastName2">Номер договора:</label>
+                                  <input type="text" class="form-control" id="lastName2"> </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="emailAddress2"> Наименованеи Заказчика:</label>
+                                  <input type="text" class="form-control" id="emailAddress2"> </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="phoneNumber2"> Полное наименование Заказчика:</label>
+                                  <input type="text" class="form-control" id="phoneNumber2"> </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="emailAddress2">Внедряемая сиситема:</label>
+                                    <input type="text" class="form-control" id="emailAddress2"> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phoneNumber2">Тип проекта:</label>
+                                    <input type="text" class="form-control" id="phoneNumber2"> </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="emailAddress2">Дата начала:</label>
+                                        <input type="date" class="form-control" id="emailAddress2"> </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phoneNumber2">Дата конца:</label>
+                                        <input type="date" class="form-control" id="phoneNumber2"> </div>
+                                </div>
+                            </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="location2">Руководитель проекта:</label>
+                                  <select class="custom-select form-control" id="location2" name="location">
+                                      <option value="">РП</option>
+                                      <option value="Amsterdam">Шиловец</option>
+                                      <option value="Berlin">Хамянов </option>
+                                      <option value="Frankfurt">Пех</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="date2"> Дней на оплату :</label>
+                                  <input type="text" class="form-control" id="date2"> </div>
+                          </div>
+                      </div>
+                  </section>
+
+                  
+              </form>
+          </div>
+          <!-- /.box-body -->
+        </div>
+  
+
+{% endblock %}

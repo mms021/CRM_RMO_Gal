@@ -1,0 +1,144 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Ресурсы </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resorsplan %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  <div class="box">
+    <div class="box-header with-border">
+      <div class="btn-group mb-5">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> Ресурсы по отделам  </button>
+        <div class="dropdown-menu">
+          {% for i in otd|otdelfilf:user.first_name %}
+        <a class="dropdown-item" href="{% url 'resorsplaning:otdel' pk=i.id %}">{{i.title}}</a> 
+          {% endfor %}
+        </div>
+      </div>
+      {% if user.is_staff %}
+      <div class="btn-group mb-5">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Отделы</button>
+        <div class="dropdown-menu">
+          {% for i in otd %}
+        <a class="dropdown-item" href="{% url 'resorsplaning:otdel' pk=i.id %}">{{i.title}}</a> 
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <div class="box-body">
+    <ul class="nav nav-tabs" role="tablist">
+        {% for u in otc %}
+        <li class="nav-item"> <a class="nav-link " data-toggle="tab" href="#z{{u.id}}" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">{{u.title}} </span></a> </li>
+        {% endfor %}
+    </ul>  
+    <div class="tab-content tabcontent-border">
+      {% for u in otc %}
+      <div class="tab-pane pad" id="z{{u.id}}" role="tabpanel">
+      <div class="row">
+        <div class="col-xl-12 col-12">	
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="idofot" value="{{ u.id }}" >
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                  <th>№</th>
+                  <th> ФИО </th>
+                  {% for i in prog %}
+                  <th>
+                  <a href="{% url 'preseil:preselproj' pk=i.id %}">{{i.title}}
+                  </a>
+                  </th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for h in cont %}
+                <tr>
+                <th>{{ forloop.counter }}</th>
+                <th>{{ h.title }} </th>  
+                {% for i in prog %}
+                  <th>
+                    {% plan_resors_of_work i.id h.index u.id  as prod %}
+                    {% if prod.nom == 'da'  %}
+
+                    <input type="hidden" name="checid" value="{{ i.id }}?{{ h.index }}" {{dischek}} >
+                    <select class="form-control select2"  name="proz" {{dischek}}  > 
+                      <option value="{{ prod.tit }}">{{  prod.tit }}%</option>
+                      <option value="0">0%</option>
+                      <option value="10">10%</option>
+                      <option value="20">20%</option>
+                      <option value="30">30%</option>
+                      <option value="40">40%</option>
+                      <option value="50">50%</option>
+                      <option value="60">60%</option>
+                      <option value="70">70%</option>
+                      <option value="80">80%</option>
+                      <option value="90">90%</option>
+                      <option value="100">100%</option>
+                    </select>   
+
+                    {% endif %}
+                  </th>
+                {% endfor %}
+
+                </tr>
+                {% endfor %}
+              </tbody>
+                
+              </table>
+            </div>
+
+            <div class="">
+              
+              <input type="submit" value="Утвердить расход ресурсов" class="btn btn-group-lg btn-block btn-success" > 
+             
+            </div>
+            
+          </form>
+
+        </div>
+      </div>
+        
+      </div>
+      {% endfor %}
+        
+      
+    </div>
+  
+  </div>
+ 
+
+</div>
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

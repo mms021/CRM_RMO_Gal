@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+{% load static %}
+{% load pasport %}
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Makeev Max">
+    <link rel="icon"  href="{% static "projects/pmo.png" %}" >
+    <title> Отчет по Проекту </title>
+	
+
+	<!-- Bootstrap 4.0-->
+	<link rel="stylesheet"  href="{% static "projects/assets/vendor_components/bootstrap/dist/css/bootstrap.css" %}" type="text/css">
+	
+	<!-- Bootstrap extend-->
+	<link rel="stylesheet" href="{% static "projects/css/bootstrap-extend.css" %}" type="text/css" >
+	
+	<!-- theme style -->
+	<link rel="stylesheet" href="{% static "projects/css/master_style.css" %}" type="text/css">
+	
+	<!-- Materiel Admin skins -->
+	<link rel="stylesheet" href="{% static "projects/css/skins/_all-skins.css" %}" type="text/css">
+
+  </head>
+
+<body class="">
+<div class="">
+ 
+  <!-- Left side column. contains the logo and sidebar -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="">
+	  
+    <!-- Main content -->
+    <section class="content">	
+		<div class="container-full">
+          
+        <div class="">
+          <div class="box">
+                <div class="box-header">
+                    <h4 class="box-title"> Все Проекты </h4>
+                    <div class="box-controls pull-right">
+                      <div class="lookup lookup-circle lookup-right">
+                        <input type="text" name="s">
+                      </div>
+                    </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body no-padding">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <tr>
+                          <th scope="col" >Проект</th>
+                          <th scope="col" >Этап</th>
+                          
+                          <th scope="col">Дата завершения</th>
+                         
+                          <th scope="col">Акт </th>
+                          <th scope="col">Оплата </th>
+                          <th scope="col">Комментарий</th>
+                      </tr>
+                      
+                      {% for itm in projects %}
+                      {% if itm.activedog != "Завершен" %}
+                      <tr bgcolor="{% cycle '#E6E6E6' '#FFFFFF' as tablecolor %}" class="tab"> 
+                              
+                          <td  rowspan="{{itm.id|itcount}}">
+                          <a class ="Fig" href=
+                          {% if user.first_name == itm.rpproecta %}
+                                    "{% url 'projects:passs' pk=itm.id %}" 
+                          {% else %}
+                                    "{% url 'projects:dashpass' %}" 
+                          {% endif %} 
+                          >
+                          {{ itm.title }} <br> РП: {{ itm.rpproecta }} <br> {{ itm.nomerdogovora }} <br> {{ itm.tipdogovora }}</td> 
+                          </a> 
+                          
+                          {% for itms in itap|itapfiltersfor:itm.id %}
+                              
+                              <td bgcolor="{{ tablecolor }}" class="col-xs-2"> {{ itms.title }} {{ itms.itapnaim|truncatechars:50 }}</td> 
+                              
+                              <td bgcolor="{{ tablecolor }}"> {{ itms.datastop|date:"d.m.Y"  }}</td> 
+                             
+                              <td bgcolor="{{ tablecolor }}">   
+                              {% if itms.act == "Подписан" %}
+                                <img src="{% static "projects/icon1.png" %}" width="25" height="25" title="{{ itms.act }}">
+                              {% elif itms.act == "Не начат" or itms.act == "В работе" %}
+                                <img src="{% static "projects/icon2.png" %}" width="25" height="25" title="{{ itms.act }}">
+                              {% elif itms.act == "Сформирован" %}
+                                <img src="{% static "projects/icon5.1.jpeg" %}" width="25" height="25" title="{{ itms.act }}">
+                              {% elif itms.act == "На подписании" %}
+                                <img src="{% static "projects/sig.png" %}" width="25" height="25" title="{{ itms.act }}">
+                             
+                              {% else %}
+                                <!-- {{ itms.act }}-->
+                              {% endif %}
+                              </td>
+                              <td bgcolor="{{ tablecolor }}"> 
+                              {% if itms.oplata == "Оплачен" %}
+                                  <img src="{% static "projects/icon4.png" %}" width="25" height="25" title="{{ itms.oplata }}">
+                              {% elif itms.oplata == "Задолженность" %}
+                                  <img src="{% static "projects/icon3.png" %}" width="25" height="25" title="{{ itms.oplata }}">
+                              {% elif itms.oplata == "Ожидаем" %}
+                                  <img src="{% static "projects/time.png" %}" width="25" height="25" title="{{ itms.oplata }}">
+                              {% elif itms.oplata == "Не начат" or itms.oplata == "В работе" %}
+                                  <img src="{% static "projects/icon2.png" %}" width="25" height="25" title="{{ itms.oplata }}">
+                              {% else %}
+                                 <!--  {{ itms.oplata }}-->
+                              {% endif %} 
+            
+                                </td>
+                              <td bgcolor="{{ tablecolor }}"> 
+                                  {% if itms.act in "Подписан" and  itms.oplata in "Оплачен" %}
+                                          <p style="color: #006400">Завершен/Оплачен</p> 
+                                  {% elif itms.act in "Подписан" and  itms.oplata in "Ожидаем" %}
+                                          <p style="color: #006400"> Акт подписан/ <span style="color: #ff0a0a">Ожидает оплаты.</span> </p> 
+                                  {% endif %}
+                                  
+                                  {{ itms.komentrp }}
+                                  {% if itms.komentstep %}
+                                      <br><br><strong> Комментарий Ирины Степановой: </strong>
+                                          <br> {{ itms.komentstep }} 
+                                  {% endif %}
+                              </td>
+                              </tr> 
+                          
+                          {% endfor %}   
+                          
+                          
+                          {% endif %}    
+                  {% endfor %} 
+
+
+                    </table>
+                  </div>
+              </div>
+              <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+      </div>
+
+		</div>	  		      
+	</section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right d-none d-sm-inline-block">
+        <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+		  <li class="nav-item">
+			<a href="mailto:makeev.m@galaktika.ru" class="nav-link" target="_blank">Поддержка</a>
+		  </li>
+		</ul>
+    </div>
+	<div class="col-lg-6">
+			<div class="copyright text-center  text-lg-left  text-muted">
+			  &copy; 2020 <a href="mailto:makeev.21@mail.ru" class="font-weight-bold ml-1" target="_blank">Макеев М.С. </a>
+			</div>
+		  </div>
+  </footer>
+</div>
+<!-- ./wrapper -->
+  	
+	
+	<!-- jQuery 3 --> 
+	<script src="{% static "projects/assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js" %}" ></script>
+	<!-- popper -->
+	<script src="{% static "projects/assets/vendor_components/popper/dist/popper.min.js" %}" ></script>
+	<!-- Bootstrap 4.1-->
+	<script src="{% static "projects/assets/vendor_components/bootstrap/dist/js/bootstrap.js" %}" ></script>	
+	<script src="{% static "projects/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js" %}" ></script>
+	<!-- FastClick -->
+	<script src="{% static "projects/assets/vendor_components/fastclick/lib/fastclick.js" %}" ></script>
+	<!-- fullscreen -->
+	<script src="{% static "projects/assets/vendor_components/screenfull/screenfull.js" %}" ></script>
+	
+	
+  <script src="{% static "projects/assets/vendor_components/fusioncharts-suite-xt/js/fusioncharts.js" %}" ></script>
+  <script src="{% static "projects/assets/vendor_components/fusioncharts-suite-xt/js/themes/fusioncharts.theme.fusion.js" %}" ></script>
+	<script src="{% static "projects/assets/vendor_components/apexcharts-bundle/irregular-data-series.js" %}" ></script>
+	<script src="{% static "projects/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js" %}" ></script>
+		
+	<!-- Materiel Admin App -->
+	<script src="{% static "projects/js/template.js" %}" ></script>
+
+
+
+	<!-- Materiel Admin dashboard demo (This is only for demo purposes)
+	<script src="js/pages/dashboard.js"></script>
+	 -->
+</body>
+</html>
+

@@ -1,0 +1,101 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Ресурсы </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">  
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"></h4> 
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+          <form action="" method="post">
+            {% csrf_token %}
+          <div class="table-responsive">
+            <table class="table table-bordered mb-0">
+              <thead>
+              <tr>
+                <th>№</th>
+                <th>ФИО</th>
+                <th>Отдел</th>
+                <th> Итог </th>
+                {% for key in proj %}
+                <th>
+                  {% if key.rucgrup == "pres" %} 
+                    <a href="{% url 'preseil:preselproj' pk=key.id %}">
+                      <span class="badge badge-pill badge-info">{{ key.title }}</span>
+                    </a>
+                  {% else %} 
+                  <a href="{% url 'projects:passs' pk=key.id %}">
+                    <span class="badge badge-pill badge-warning">{{ key.title }}</span>
+                  </a>
+                  {% endif %}
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for res in sot %}
+              <tr>
+                <td> {{ forloop.counter }} </td>
+                <td> <a href="{% url 'resurses:mywokrcrename' pk=res.index %}">{{ res.title }}</a>  <!-- <br> {{ res.doljnost }}--> </td>
+                <td>  {{ res.ondel.title  }}  </td>
+                <td> 
+                  {% if res.id|itog:res.index != 100 %}
+                  <span class="label label-danger">{{ res.id|itog:res.index  }} </span>
+                  {% elif res.id|itog:res.index  == 100 %}
+                  <span class="label label-success"> 100 </span>
+                  {% endif %}
+                </td>
+                {% for key in proj%}
+                <th  > 
+                   {% resors_of_work key.id res.index gor.id  %}
+                  
+                </th>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+          </div>
+        </form>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  
+</div>
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

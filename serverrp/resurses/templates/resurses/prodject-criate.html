@@ -1,0 +1,97 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Сотрудник  </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+        <div class="box">
+              <div class="box-header">
+            <h4 class="box-title"> Добавить нового сотрудника</h4>
+           
+              
+          </div>
+          <!-- /.box-header -->
+
+          <div class="box-body wizard-content">
+            <form enctype="multipart/form-data" action="" method="post" class="tab-wizard vertical wizard-circle">
+                {% csrf_token %}
+                  <!-- Step 1 -->
+                  
+                  <section>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="Name1"> ФИО:</label>
+                                  <input type="text" class="form-control" id="Name1" name='title' value="{{ con.title }} "> </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="dolj"> Должность:</label>
+                                  <input type="text" class="form-control" id="dolj" name="doljnost" value="{{ con.doljnost }}">  </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="emailAddress2"> Электронная почта:</label>
+                                  <input type="text" class="form-control" id="emailAddress2" name='mail' value="{{ con.mail }}">  </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="phoneNumber2"> Номер телефона:</label>
+                                  <input type="text" class="form-control" id="phoneNumber2" name='telnomder' value="{{ con.telnomder }}">  </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="location2">Отдел:</label>
+                                  <select class="custom-select form-control" id="location2" name="otd">
+                                    <option value="{{con.ondel.id}}">{{ con.ondel.title }}</option>
+                                    {% for i in otd %}
+                                      <option value="{{i.id}}">{{ i.title }}</option>
+                                    {% endfor %}
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kompani"> Статус:</label>
+                                <select class="custom-select form-control" id="kompani" name="statusof">
+                                    <option value="{{ con.statusof }}">{{ con.statusof }}</option>
+                                    <option value="Уволен">Уволен</option>
+                                    <option value="Работает">Работает</option>
+                                    <option value="Декрет">Декрет</option>
+                                  </select>
+                             </div>
+                        </div>
+
+                      </div>
+                      
+                  </section>
+                  <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+              </form>
+          </div>
+          <!-- /.box-body -->
+        </div>
+  
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Опер план</title>
+{% endblock %}
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+<script> 
+function addRow(id){
+    var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+    var row = document.createElement("TR")
+    var td = document.createElement("TD")
+    var inp = document.createElement("input")
+    inp.type = "hidden"
+    inp.name = "itapid"
+    inp.value = "pass"
+    td.appendChild(inp)
+
+    var td1 = document.createElement("TD")
+    var inp1 = document.createElement("input")
+    inp1.type = "text"
+    inp1.name = "punktplana"
+    inp1.id = "punktplana"
+    inp1.size = "20"
+    td1.appendChild(inp1)
+    var td2 = document.createElement("TD")
+    var inp2 = document.createElement("input")
+    inp2.type = "text"
+    inp2.name = "level"
+    inp2.id = "level"
+    inp2.class="form-control"
+    inp2.size = "3"
+    td2.appendChild(inp2)
+
+    var td3 = document.createElement("TD")
+    var inp3 = document.createElement("input")
+    inp3.type = "text"
+    inp3.name = "datafi"
+    inp3.id = "datafi"
+    inp3.size = "10"
+    td3.appendChild(inp3)
+
+    var td4 = document.createElement("TD")
+    var inp4 = document.createElement("input")
+    inp4.type = "text"
+    inp4.name = "dataend"
+    inp4.id = "dataend"
+    inp4.size = "10"
+    td4.appendChild(inp4)
+
+    var td5 = document.createElement("TD")
+    var inp5 = document.createElement("input")
+    inp5.type = "text"
+    inp5.name = "rezuls"
+    inp5.id = "rezuls"
+    
+    td5.appendChild(inp5)
+
+    var td6 = document.createElement("TD")
+    var inp6 = document.createElement("input")
+    inp6.type = "text"
+    inp6.name = "document"
+    inp6.id = "document"
+    
+    td6.appendChild(inp6)
+
+    row.appendChild(td);
+    row.appendChild(td1);
+    row.appendChild(td2);
+    row.appendChild(td3);
+    row.appendChild(td4);
+    row.appendChild(td5);
+    row.appendChild(td6);
+    tbody.appendChild(row);
+  }
+</script>
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+<!-- Основной контент -->
+{% block page_contecst %}
+
+<div class="">
+        <div class="box">
+              <div class="box-header">
+                  <h4 class="box-title">Оперативный план</h4>
+                  <div class="box-controls pull-right">
+                    
+                  </div>
+            </div>
+            <form action="" method="post"> 
+
+                    {% csrf_token %} 
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                
+                <div class="table-responsive">
+                    {% for it in itap  %}
+                    <table class="table table-hover">
+                    <tr>
+                        <th width='6'> </th>
+                        <th>  <strong> {{ it.title}}</strong> </th>
+                        <th width='70%'></th>
+                        <th> <button onclick="addRow('str{{ it.id }}');return false;" class="btn btn-sm btn-primary"> Добавить строку</button></th>
+                    </tr>
+                    </table>
+                    <table class="table table-hover" id ='str{{ it.id }}'>
+                    <tbody>
+                    <input type="hidden" id="itapid" name="itapid" value="{{ it.id }}">
+                    <tr>
+                        <th width='3%'>№</th>
+                        <th width='19%'>Пункт плана</th>
+                        <th width='2%'>Уровень</th>
+                        <th width='12%'>План начала </th>
+                        <th width='12%'>План конца </th>
+                        <th width='26%'> Стоимомть работы </th>
+                        <th width='26%'>Документ</th>
+                     </tr> 
+                    {% for itmm in zadat %}
+                    
+                        {% if itmm.itap.title == it.title %}
+                        <tr>
+                                <th><input type="hidden" name="imm" value="{{ itmm.id }}"> </th>
+                                <th><input type="text" name="title" value="{{ itmm.title }}" class="form-control">  </th>
+                                <th><input type="text" name="level" value="{{ itmm.level }}" class="form-control"> </th>
+                                <th><input type="text" name="datee" class="form-control" size="10" value="{{ itmm.data|date:"d.m.Y" }}">  </th>
+                                <th><input type="text" name="dateend" class="form-control" size="10" value="{{ itmm.dataend|date:"d.m.Y"  }}"> </th>
+                                <th><input type="text" name="rezall" id="rezall" value="{{ itmm.rezult }}" class="form-control" ></th>
+                                <th> <input type="text" name="document" id="document" value="{{ itmm.documentrez }}" class="form-control" ></th>
+                         </tr>
+                        {% endif %}
+                    
+                    {% endfor %}
+                    </tbody>
+                    </table>
+
+
+
+
+                    {% endfor %}
+                  </table>
+                </div>
+            </div>
+            <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+            </form>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+  </div>
+
+{% endblock %}

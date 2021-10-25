@@ -1,0 +1,162 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Пресейл </title>
+{% endblock %}
+
+
+{% load pres %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="box">
+        <div class="box-header">
+            <h4 class="box-title">Пресейл новый </h4>
+            <div class="box-controls pull-right">
+              <div class="lookup lookup-circle lookup-right">
+                <input type="text" name="s">
+              </div>
+            </div>
+      </div>
+      <!-- /.box-header -->
+      
+      <form action="" method="post">
+        {% csrf_token %}  
+          <div class="box-body">
+            <div class="row">
+              <div class="col-xl-6 col-12">	
+                  <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <tbody>
+                      <tr>
+                        <th>Название проекта:</th>
+                        <td> <input type="text" name="title" class="form-control" value="{{ press.title }}"> </td>
+                      </tr>
+
+                      <tr>
+                          <th> Менеджер/РП:</th>
+                          <td> 
+                            <select name="rpproecta" class="form-control" > 
+                              
+                              {% for us in users %}
+                              <option value="{{ us.first_name }}">{{ us.first_name }}</option>
+                              {% endfor %}  
+                            </select>
+                          </td>
+                      </tr>
+                      <tr>
+                        <th> Статус:</th>
+                        <td> 
+                          <select name="status" class="form-control" > 
+                            
+                            <option value="Активный">Активный</option>
+                            <option value="На паузе">На паузе</option>
+                            <option value="Отказ">Отказ</option>
+                          </select>
+                        </td>
+                    </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <div class="col-xl-6 col-12">
+                  <div class="table-responsive">
+                      <table class="table table-hover mb-0">
+                        <tbody>
+                        <tr>
+                          <th>Группа:</th>
+                          <td> 
+                            <select name="polzvt" class="form-control" > 
+                              <option value="Первичный">Первичный</option>
+                              <option value="Пользователь">Пользователь</option>
+                            </select>
+    
+                          </td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <th> Планируемая сумма: </th>
+                            <td> <input type="text" name="prisezatrat" class="form-control" value="{{ press.summa  }}"> </td>
+                        </tr>
+                        <tr>
+                            <th> Контрактация:</th>
+                            <td> <input type="text" name="kontrok" class="form-control" value="{{ press.kontrok }}">   </td>
+                        </tr>
+                        <tr>
+                          <th> Канал:</th>
+                          <td> <select name="kanal" class="form-control" > 
+                            <option value="Руководство">Руководство</option>
+                            <option value="Маркетинг">Маркетинг</option>
+                            <option value="Партнер">Партнер</option>
+                            <option value="Текущий проект">Текущий проект</option>
+                            <option value="Выставка/Конференция">Выставка/Конференция</option>
+                          </select>  </td>
+                      </tr>
+                        </tbody>
+                      </table>
+                    </div>
+              </div>
+            </div>
+            <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+          </div>
+    
+          
+      </form>
+      <!-- /.box-body -->
+  </div>
+
+
+  <div class="col-lg-6 col-12">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myLargeModalLabel"> Добавить новое предприятие </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <form action="" method="post">
+          {% csrf_token %} 
+          <input type="hidden" name="form" value="newcompani">
+        <div class="modal-body">
+          
+            <div class="form-group">
+            <input class="form-control" placeholder="Название предприятия:" name="title">
+            </div>
+            <div class="form-group">
+              <input class="form-control" placeholder="Описание:" name="otvet">
+            </div>
+              
+           
+            
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Сохранить " class="btn btn-success">
+          <div class="pull-right">
+            <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+           
+                </div>
+              
+        </div>
+      </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    </div> 
+
+{% endblock %}

@@ -1,0 +1,334 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Контакты </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resors %}
+{% load pasport %}
+{% load pres %}
+<!-- Стили -->
+{% block page_styles %}
+
+<script>
+
+function addRowme(id){
+    var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+    var row = document.createElement("TR")
+
+    var td = document.createElement("TD")
+
+    var td1 = document.createElement("TD")
+    var inp1 = document.createElement("input")
+    inp1.type = "text"
+    inp1.name = "fiosot"
+    inp1.className ="form-control"
+    td1.appendChild(inp1)
+
+    var td2 = document.createElement("TD")
+    var inp2 = document.createElement("input")
+    inp2.type = "text"
+    inp2.name = "doljnsotr"
+    inp2.className ="form-control"
+    td2.appendChild(inp2)
+
+
+    var td21 = document.createElement("TD")
+    var inp21 = document.createElement("input")
+    inp21.type = "text"
+    inp21.name = "podraz"
+    inp21.className ="form-control"
+    td21.appendChild(inp21)
+
+    var td3 = document.createElement("TD")
+    var inp3 = document.createElement("input")
+    inp3.type = "text"
+    inp3.name = "telsotrud"
+    inp3.className ="form-control"
+    td3.appendChild(inp3)
+
+    var td5 = document.createElement("TD")
+    var inp5 = document.createElement("input")
+    inp5.type = "text"
+    inp5.name = "emailsotr"
+    inp5.className ="form-control"
+    td5.appendChild(inp5)
+
+    row.appendChild(td);
+    row.appendChild(td1);
+    row.appendChild(td2);
+    row.appendChild(td21)
+    row.appendChild(td3);
+    row.appendChild(td5);
+    tbody.appendChild(row);
+  }
+
+</script>
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+<form action="" method="post">
+  {% csrf_token %} 
+
+<div class="col-12">
+  
+  <div class="box">
+    <div class="box-header">
+      <h4 class="box-title"> {{ comp.title }}</h4>			
+      <div class="box-controls pull-right"> 
+
+        </div>
+    </div>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#zadatcha" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">  Информация о преприятии</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#doc" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down"> Пресейлы  </span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dopol" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down"> Проекты </span></a> </li>
+    </ul>
+    <div class="tab-content tabcontent-border">
+      <div class="tab-pane active" id="zadatcha" role="tabpanel">
+        <div class="pad">
+          <div class="box-body">
+            <h4 class="box-title text-info"><i class="ti-map-alt mr-15"></i>  {{ comp.title }}</h4>
+            <hr class="my-15">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label> Форма собственности</label>
+                  <input class="form-control" type="text" name="opisanie" value="{{ comp.opisanie }}">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Отрасль</label>
+                  <input class="form-control" type="text" name="otraasal" value="{{ comp.otraasal }}"> 
+                </div>
+              </div>
+            </div>
+            <div class="row"> 
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>ИНН</label>
+                  <input class="form-control" type="text" name="inn" value="{{ comp.inn }}">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group"> 
+                  <label >Сайт</label>
+                  <input class="form-control" type="text" name="sait" value="{{ comp.sait }}"> 
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label >E-mail</label>
+                  <input class="form-control" type="text" name="email" value="{{ comp.email }}">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label >Телефон</label>
+                  <input class="form-control" type="text" name="telefon" value="{{ comp.telefon }}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label >Адрес</label>
+                  <input class="form-control" type="text" name="adres" value="{{ comp.adres}}"> 
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label >Контакт с нашей стороны </label>
+                  
+                  <select class="form-control select2"  name="kontakt" > 
+                    <option value="{{ comp.kontakt }}">{{ comp.kontakt }}</option>
+                    {% for i in contacts %}
+                    <option value="{{ i.title }}">{{ i.title }}</option>
+                    {% endfor %}
+
+                  </select>  
+
+                
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label >Холдинг </label>
+                  <select class="form-control select2"  name="holding" > 
+                    <option value="{{ comp.main_comp.id }}">{{ comp.main_comp.title }}</option>
+                    {% for i in compne %}
+                    <option value="{{ i.id }}">{{ i.title }}</option>
+                    {% endfor %}
+                  </select>  
+                </div>
+              </div>
+            </div>
+           
+
+            
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="button" class="btn btn-warning mr-1">
+              <i class="ti-trash"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-success">
+              <i class="ti-save-alt"></i> Сохранить
+            </button>
+        </div>  
+        <div class="box">
+          <div class="box-body">
+              
+              <div class="row"> 
+                <div class="col-xl-12 col-12">	
+                  <div class="box-header with-border"> 
+                  <h4 class="box-title"> Контакты  </h4> 
+                  <div class="box-controls pull-right"> 
+                    <button class="btn btn-sm btn-primary" type="button" onclick="addRowme('myTable5');return false;" > Добавить контакт </button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="row">
+              <div class="col-xl-12 col-12">	
+                  <div class="table-responsive">
+                    <table id="myTable5" class="table table-hover mb-0">
+                      <thead>
+                      <tr>
+                        <th>№</th>
+                        <th>ФИО</th>
+                        <th>Должность</th>
+                        <th>Подразделение </th>
+                        <th>Телефон </th>
+                        <th>Почта</th>
+                      </tr>
+                    </thead>
+                    <tbody  id="myTable5">
+                      {% for res in cont %}
+                      <tr>
+                        <td> {{ forloop.counter }} </td>
+                        <td> <a href="{% url 'resurses:contactsname' pk=res.index  %}" >  {{ res.title }} </a> </td>
+                        <td> {{ res.doljnost }} </td>
+                        <td> {{ res.podraz }} </td>
+                        <td> {{ res.telnomder }} </td>
+                        <td> {{ res.mail }} </td>
+                      </tr>
+                      
+                      {% endfor %}
+                    </tbody>
+                    </table>
+                  </div>
+                  <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        </div>
+      </div>
+      <div class="tab-pane pad" id="doc" role="tabpanel">
+        <div class="box-header">
+          <h4 class="box-title"> Пресейлы </h4>
+          <div class="box-controls pull-right">
+          </div>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tr>
+                  <th>№</th>
+                  <th>Проект</th>
+                  <th> Менеджер </th>
+                  <th > Канал </th>
+                  <th> Продукт </th>
+                  <th>Сумма </th>
+                  <th>Статус </th>
+                  <th>Процент реализации  </th>
+                  
+                </tr>
+                
+                {% for itm in pres %}
+                 
+                <tr>
+                  <td> {{ forloop.counter }}</td>
+                  <td><a href="{% url 'preseil:preselproj' pk=itm.id %}">{{ itm.title }}</a></td>
+                  <td> {{ itm.menedjer.first_name }} </td>
+                  <td> {{ itm.kanal }}</td>
+                  <td> {{ itm.product }}</td>
+                  <td> {{ itm.summa }}</td>
+                  <td> {{ itm.status }} </td>
+                  <td> {{ itm.id|proxxx }} % </td>
+                </tr>
+                
+                {% endfor %}
+  
+              </table>
+            </div>
+          </div>
+      </div>
+      <div class="tab-pane pad" id="dopol" role="tabpanel">
+        <div class="box-header">
+          <h4 class="box-title"> Проекты </h4>
+          <div class="box-controls pull-right">
+          </div>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tr>
+                  <th>№</th>
+                  <th>Проект</th>
+                  <th>Номер договора</th>
+                  <th width="100">Тип договора</th>
+                  <th >Процент выполения </th>
+                  <th>Статус</th>
+                </tr>
+                {% for itm in prod %}
+                <tr>
+                  <td> {{ forloop.counter }}</td>
+                  <td><a href="{% url 'projects:passs' pk=itm.id %}">{{ itm.title }}</a></td>
+                  <td> {{ itm.nomerdogovora }} </td>
+                  <td> {{ itm.tipdogovora }}</td>
+                  <td> {{ itm.id|prozentpo }} % </td>
+                  <td> {{ itm.activedog }}
+                  </td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- /.box-header -->
+
+
+</div> 
+</form>
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+{% endblock %}

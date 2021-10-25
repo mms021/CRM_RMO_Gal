@@ -1,0 +1,160 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Dashbord </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+
+
+{% block page_styles %}
+<link rel="stylesheet" href="{% static "projects/assets/vendor_components/morris.js/morris.css"%}">	
+         
+<style>
+
+#bly {
+  width: 12px;
+  height: 12px;
+  background: #5A8DEE;
+}
+#green {
+  width: 12px;
+  height: 12px;
+  background: #39DA8A;
+}
+
+</style>
+	
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+<li class="header">Проекты</li>  
+		  
+        <li class="treeview">
+          <a href="#">
+            <i class="ti-palette"></i>
+            <span>Проекты</span>
+            <span class="pull-right-container">
+              <i class="fa fa-caret-down pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+
+		
+            <li><a href="#{{ projects.title }}"><i class="fa fa-circle-thin"></i>{{ projects.title }}</a></li>
+		
+          </ul>
+</li>
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title">Общая информация по проектам </h4>
+      <ul class="box-controls pull-right">
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+          <div class="row">
+            <div class="">
+              <!-- /.box -->
+              
+                 
+                  
+                  <div class="box-body chart-responsive">
+                    <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+                  </div>
+                <!--   /.box-body -->
+              </div>	
+            
+            	
+      </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+  
+ 
+	<!-- jQuery Knob -->
+	<script src="{% static "projects/assets/vendor_components/jquery-knob/js/jquery.knob.js"%}"></script>
+	
+	<!-- Sparkline -->
+	<script src="{% static "projects/assets/vendor_components/jquery-sparkline/dist/jquery.sparkline.min.js"%}"></script>
+	
+	
+  <!-- Materiel Admin for Chart purposes -->
+  
+  <script src="{% static "projects/assets/vendor_components/chart.js-master/Chart.bundle.js"%}"></script>
+	<script src="{% static "projects/assets/vendor_components/chart.js-master/utils.js"%}"></script>
+
+  <!-- SlimScroll -->
+	<script src="{% static "projects/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"%}"></script>
+
+
+  <!-- Morris.js charts -->
+	<script src="{% static "projects/assets/vendor_components/raphael/raphael.min.js"%}"></script>
+	<script src="{% static "projects/assets/vendor_components/morris.js/morris.min.js"%}"></script>
+
+  
+<!-- Materiel Admin for inline Chart purposes -->
+  <script src="{% static "projects/js/pages/widget-inline-charts.js"%}"></script>
+
+   <!-- Materiel Admin for Morris Chart purposes -->
+    
+
+
+   <script>
+    feather.replace()
+  </script>
+
+  <!-- Graphs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        datasets: [{
+          data: [
+            15339, 21345, 18483, 24003, 23489, 24092, 12034 
+             ],
+          lineTension: 0,
+          backgroundColor: 'transparent',
+          borderColor: [
+        '#5A8DEE',
+        '#39DA8A',
+        '#506b8b',
+        '#FDAC41',
+        '#FF5B5C'
+      ],
+          borderWidth: 4,
+          pointBackgroundColor: '#007bff'
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
+          }]
+        },
+        legend: {
+          display: false,
+        }
+      }
+    });
+  </script>
+  
+      
+{% endblock %}

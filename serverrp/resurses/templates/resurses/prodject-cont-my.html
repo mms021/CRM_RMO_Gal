@@ -1,0 +1,109 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Контакт </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+    <div class="box">
+      <div class="box-header">
+        <h4 class="box-title"> -</h4>			
+          <ul class="box-controls pull-right">
+           
+            <li><a class="box-btn-slide" href="#"></a></li>	
+            <li><a class="box-btn-fullscreen" href="#"></a></li>
+          </ul>
+      </div>
+      <!-- /.box-header -->
+      <form class="form" method="POST">
+        {% csrf_token %} 
+          <div class="box-body">
+              <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Контакт</h4>
+              <hr class="my-15">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>ФИО</label>
+                    <input type="text" class="form-control" placeholder="ФИО" name="title" value="{{ cont.title }}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Должность</label>
+                    <input type="text" class="form-control" placeholder="Должность" name="doljnost" value="{{ cont.doljnost }}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label >E-mail</label>
+                    <input type="text" class="form-control" placeholder="E-mail" name="mail" value="{{ cont.mail }}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label >Телефон</label>
+                    <input type="text" class="form-control" placeholder="Телефоный номер" name="telnomder" value="{{ cont.telnomder }}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label >Подразделение</label>
+                    <input type="text" class="form-control" placeholder="Подразделение" name="podraz" value="{{ cont.podraz }}">
+                  </div>
+                </div>
+
+              </div>
+              <h4 class="box-title text-info"><i class="ti-map-alt mr-15"></i> Описание </h4>
+              <hr class="my-15">
+              <div class="form-group">
+                <label>Компания</label>
+                <br>
+                <a href="{% url 'resurses:companicontacts' pk=cont.compan.id %}">{{ cont.compan.title }}</a>
+                {% if cont.compan.main_comp  %}
+                <br>
+                <label>Холдинг</label>
+                <br>
+                <a href="{% url 'resurses:companicontacts' pk=cont.compan.main_comp.id %}">{{ cont.compan.main_comp.title }}</a>
+                {% endif %}
+              </div>
+              
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer">
+              <button type="button" class="btn btn-warning mr-1">
+                <i class="ti-trash"></i> Cancel
+              </button>
+              <button type="submit" class="btn btn-success">
+                <i class="ti-save-alt"></i> Сохранить
+              </button>
+          </div>  
+      </form>
+    </div>
+    <!-- /.box -->			
+  </div> 
+
+
+
+
+{% endblock %}

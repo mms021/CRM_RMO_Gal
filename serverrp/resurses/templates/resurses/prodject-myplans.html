@@ -1,0 +1,386 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Задачи </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+<style>
+
+  .containerdert {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+}
+
+.containerdert input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmarkdert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.containerdert:hover input ~ .checkmarkdert {
+  background-color: #ccc;
+}
+
+.containerdert input:checked ~ .checkmarkdert {
+  background-color: #2196F3;
+}
+
+.checkmarkdert:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.containerdert input:checked ~ .checkmarkdert:after {
+  display: block;
+}
+
+.containerdert .checkmarkdert:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+
+{% endblock %}
+
+{% block page_contecst %}
+
+  
+    
+
+    <!-- Main content -->
+    
+      <div class="col-12">
+      <button class="btn btn-success btn-block btn-shadow margin-bottom" type="button" alt="default" data-toggle="modal" data-target=".bs-example-modal-lg"> Добавить задачу </button>
+      {% if user.is_staff %}	  
+      <button class="btn btn-primary btn-block btn-shadow margin-bottom" type="button" alt="default" data-toggle="modal" data-target="#newtask"> Назначить  задачу </button>
+      {% endif %}
+    
+    </div>
+
+    <div class="col-lg-6 col-12">
+      <div class="modal fade " id ='newtask' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myLargeModalLabel"> Назначить задачу </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          </div>
+          <form action="" method="post">
+            {% csrf_token %} 
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="hidden" name="tupe" value="newtasks">
+              <select class="form-control select2" placeholder="Проект:" name="projid" required> 
+              {% if user.is_staff %} 
+                {% for i in projd %}
+                <option value="{{ i.id }}"> {{ i.title }}</option>
+                {% endfor %}
+              {% else %}
+                {% for i in proj %}
+                <option value="{{ i.id }}"> {{ i.title }}</option>
+                {% endfor %}
+              {% endif %} 
+              </select>  
+              </div>
+              <div class="form-group">
+              <input class="form-control" placeholder="Тема:" name="title">
+              </div>
+              <div class="form-group">
+                <table width='100%'>
+                  <tr>
+                    <td>
+                      <select class="form-control select2" placeholder="Ответственный:"  name="otvet"> 
+                       
+                        <option value="---">РП проекта:</option>
+                        {% for i in use %}
+                        <option value="{{ i.first_name }}"> {{ i.first_name }}   </option>
+                        {% endfor %}
+                      </select> 
+
+                    </td>
+                    <td>
+                      <input class="form-control" placeholder="Срок исполнения:" name="srok" >
+                    </td>
+                    <td>
+                      Приоритет:
+                    </td>
+                    <td>
+                      <select class="form-control select2"  name="prior"> 
+                        <option value="Низкий"> Низкий </option>
+                        <option value="Средний"> Средний </option>
+                        <option value="Высокий"> Высокий </option>
+                      </select>  
+                    </td>
+                  </tr>
+                </table>
+                </div>
+              <div class="form-group">
+                <textarea id="compose-textarea" name="text" class="form-control" style="height: 300px"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" value="Сохранить " class="btn btn-success">
+            <div class="pull-right">
+              <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+             
+                  </div>
+                
+          </div>
+        </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+      </div>
+    
+      
+
+        
+      </div>
+
+
+
+
+
+      <!-- Новое задания -->
+
+      <div class="col-lg-6 col-12">
+		  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myLargeModalLabel"> Добавить новое задание </h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          </div>
+          <form action="" method="post">
+            {% csrf_token %} 
+					<div class="modal-body">
+						<div class="form-group">
+              <input type="hidden" name="tupe" value="new">
+              <select class="form-control select2" placeholder="Проект:"  name="projid"> 
+                <option value="---">Проект:</option>
+                {% for i in proj %}
+                <option value="{{ i.id }} "> {{ i.title }} </option>
+                {% endfor %}
+              </select>  
+							
+						  </div>
+						  <div class="form-group">
+							<input class="form-control" placeholder="Тема:" name="title">
+              </div>
+              <div class="form-group">
+                <table width='100%'>
+                  <tr>
+                    <td>
+                      <input class="form-control" placeholder="Ответственный:" name="otvet" >
+                    </td>
+                    <td>
+                      <input class="form-control" placeholder="Срок исполнения:" name="srok" >
+                    </td>
+                    <td>
+                      Приоритет:
+                    </td>
+                    <td>
+                      <select class="form-control select2"  name="prior"> 
+                        <option value="Низкий"> Низкий </option>
+                        <option value="Средний"> Средний </option>
+                        <option value="Высокий"> Высокий </option>
+                      </select>  
+                    </td>
+                  </tr>
+                </table>
+                </div>
+						  <div class="form-group">
+								<textarea id="compose-textarea" name="text" class="form-control" style="height: 300px"></textarea>
+						  </div>
+					</div>
+					<div class="modal-footer">
+            <input type="submit" value="Сохранить " class="btn btn-success">
+            <div class="pull-right">
+              <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+             
+                  </div>
+                
+          </div>
+        </form>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+	  	</div> 
+      </div>
+
+      {% for elem in zada %}
+      {% if elem.chec != 'checked' %}
+      <div class="col-lg-6 col-12">
+        <div class="modal fade " id ='zad{{elem.id}}' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myLargeModalLabel"> Просмотор задания </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form action="" method="post">
+              {% csrf_token %} 
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="hidden" name="tupe" value="old">
+                <h4 class="box-title"> {{ elem.projects.title }} </h4>
+                <input type="hidden" name="zadid" value="{{elem.id}}">
+                </div>
+                <div class="form-group">
+                <input class="form-control" placeholder="Тема:" name="title" value="{{elem.title}}">
+                </div>
+                <div class="form-group">
+                  <table width='100%'>
+                    <tr>
+                      <td>
+                        <input class="form-control" placeholder="Ответственный:" name="otvet" value="{{ elem.otvet }}">
+                      </td>
+                      <td>
+                        <input class="form-control" placeholder="Срок исполнения:" name="srok"  value="{{ elem.srok }}">
+                      </td>
+                      <td>
+                        Приоритет:
+                      </td>
+                      <td>
+                        <select class="form-control select2"  name="prior"> 
+                          <option value="{{ elem.prior }}"> {{ elem.prior }} </option>
+                          <option value="Низкий"> Низкий </option>
+                          <option value="Средний"> Средний </option>
+                          <option value="Высокий"> Высокий </option>
+                        </select>  
+                      </td>
+                    </tr>
+                  </table>
+                  </div>
+                <div class="form-group">
+                  <textarea id="compose-textarea" name="text" class="form-control" style="height: 300px">{{elem.zada}}</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" value="Сохранить " class="btn btn-success">
+              <div class="pull-right">
+                <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+               
+                    </div>
+                  
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+        </div>
+      </div>
+        {% endif %}
+        {% endfor %}
+        
+        <div class="col-12">
+          <div class="box">
+            
+          <!-- /.box-header -->
+          <div class="box-body">
+            <form action="" method="post">
+              {% csrf_token %} 
+              <input type="hidden" name="tupe" value="chec">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" >
+                  <thead>
+                    <tr>
+                      <th width="2%"> Статус </th>
+                      <th width="10%"> Проект </th>
+                      <th width="60%"> Задача  </th>
+                      <th width="15%"> Приоритет </th>
+                      <th width="8%"> Ответственный </th>
+                      <th width="5%"> Срок исполнения </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+              {% for elem in zada %}
+              {% if elem.chec != 'checked' %}
+                  <tr>
+                  <td width="2%">
+                    <label class="containerdert" width="10px">
+                      <input type="checkbox" name="checch" value="{{elem.id}}" >
+                      <span class="checkmarkdert"></span>
+                    </label>
+                    
+                  </td>
+                  <td> {{ elem.projects.title }} </td>
+                  <td>
+                    
+                    <a class="mailbox-subject" href="#zad{{elem.id}}" data-toggle="modal"> <b>{{elem.title}}</b> <br> {{ elem.zada|truncatechars:55  }} </a>
+                  </td>
+                  <td>
+                  {% if elem.prior == 'Низкий' %}
+                  <span class="label label-success">Низкий</span>
+                   {% elif elem.prior  == 'Средний' %}   
+                   <span class="label label-warning">Средний</span>
+                   {% elif elem.prior  == 'Высокий' %}   
+                   <span class="label label-danger">Высокий</span>
+                    
+                  {% endif %}
+                  </td>
+                  <td class="mailbox-attachment"> {{ elem.otvet }} </td>
+                  <td class="mailbox-date">{{ elem.srok }}</td>
+                  </tr>
+                  
+              <!-- <li class="nav-item"> <input type="checkbox"  name="checch" value="{{elem.id}}" style="position: absolute; left: 40px; height: 65px; opacity: 1; "> <a class="nav-link " data-toggle="tab" href="#zad{{elem.id}}" role="tab"> <span class="hidden-xs-down"> {{ elem.projects.title }} </span> <br>  {{ elem.zada|truncatechars:35  }} </a> </li>-->
+              {% endif %}
+              {% endfor %}
+            </tbody>
+            </table>
+            </div>   
+            <br>
+            <input type="submit" value="Сохранить" class="btn btn-default">
+            </form>
+          </div>
+          </div>
+	      </div>
+        
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+
+
+{% endblock %}

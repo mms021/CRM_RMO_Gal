@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Отчет по Проекту </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+        <div class="box">
+          <div class="box-header with-border">
+            <h4 class="box-title">Админ панель</h4>
+            <ul class="box-controls pull-right">
+              
+              <li><a class="box-btn-slide"  href="#"></a></li>	
+              
+            </ul>
+          </div>
+          
+          <div class="box-body">
+              <div class="row">
+              <div class="col-xl-6 col-12">	
+                  <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <tbody>
+                      <tr>
+                        <th>Новый проект  </th>
+                        <td> <a class="box-btn-slide"  href="{% url 'glavarp:doc' %}"> Создать </a> </td>
+                      </tr>
+                      <tr>
+                        <th>Добавить опер план:</th>
+                        <td> <a class="box-btn-slide"  href="{% url 'glavarp:op' %}"> Добавить</a></td>
+                      </tr>
+                      <tr>
+                          <th>Миграция основной БД</th>
+                          <td> <a class="box-btn-slide"  href="{% url 'glavarp:mig' %}">БД</a> </td>
+                      </tr>
+                      <tr>
+                          <th> Общее количество проектов:</th>
+                          <td> {{ pr }}</td>
+                      </tr>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+     
+              </div>
+              
+            </div>
+          </div>
+        </div>
+</div>
+{% endblock %}

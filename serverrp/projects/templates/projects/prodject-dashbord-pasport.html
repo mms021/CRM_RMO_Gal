@@ -1,0 +1,1479 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Проект  </title>
+{% endblock %}
+
+{% load static %}
+{% load pasport %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+<style>
+
+  .containerdert {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+}
+
+.containerdert input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmarkdert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.containerdert:hover input ~ .checkmarkdert {
+  background-color: #ccc;
+}
+
+.containerdert input:checked ~ .checkmarkdert {
+  background-color: #2196F3;
+}
+
+.checkmarkdert:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.containerdert input:checked ~ .checkmarkdert:after {
+  display: block;
+}
+
+.containerdert .checkmarkdert:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const areas = document.querySelectorAll("#textar"); // 
+        for (const area of areas) {
+            area.style.height = "1px";
+            area.style.height = (4 + area.scrollHeight) + "px";
+        }
+    })
+</script>
+<script>
+  function addRowdoc(id){
+          var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+          var row = document.createElement("TR")
+  
+          var td = document.createElement("TD")
+          var td0 = document.createElement("TD")
+          var inp0 = document.createElement("input")
+          inp0.type = "hidden"
+          inp0.name = "iddd"
+          inp0.value = id
+          td0.appendChild(inp0)
+  
+          var td1 = document.createElement("TD")
+          var inp1 = document.createElement("input")
+          inp1.type = "text"
+          inp1.name = "doctitle"
+          inp1.id = "doctitle"
+          inp1.size ="20"
+          inp1.className ="form-control"
+          td1.appendChild(inp1)
+  
+          var td2 = document.createElement("TD")
+          var inp2 = document.createElement("input")
+          inp2.type = "text"
+          inp2.name = "datadoc"
+          inp2.id = "datadoc"
+          inp2.size ="10"
+          inp2.className ="form-control"
+          td2.appendChild(inp2)
+  
+          var td3 = document.createElement("TD")
+          var inp3 = document.createElement("input")
+          inp3.type = "text"
+          inp3.name = "statusdoc"
+          inp3.id = "statusdoc"
+          inp3.value = "В работе"
+          inp3.className ="form-control"
+          td3.appendChild(inp3)
+  
+          row.appendChild(td);
+          row.appendChild(td0)
+          row.appendChild(td1);
+          row.appendChild(td2);
+          row.appendChild(td3);
+          tbody.appendChild(row);
+        }
+  </script>
+
+<script type="text/javascript">
+
+      function addRow2(id){
+        var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+        var row = document.createElement("TR")
+
+        var td = document.createElement("TD")
+
+        var td1 = document.createElement("TD")
+        var inp1 = document.createElement("input")
+        inp1.type = "text"
+        inp1.name = "komandnaim"
+        inp1.id = "komandnaim"
+        inp1.className ="form-control"
+        td1.appendChild(inp1)
+
+        var td2 = document.createElement("TD")
+        var inp2 = document.createElement("input")
+        inp2.type = "text"
+        inp2.name = "komandprof"
+        inp2.id = "komandprof"
+        inp2.className ="form-control"
+        td2.appendChild(inp2)
+
+        var td3 = document.createElement("TD")
+        var inp3 = document.createElement("input")
+        inp3.type = "text"
+        inp3.name = "komandmail"
+        inp3.id = "komandmail"
+        inp3.className ="form-control"
+        td3.appendChild(inp3)
+
+        row.appendChild(td);
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tbody.appendChild(row);
+      }
+
+      function addRowme(id){
+        var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+        var row = document.createElement("TR")
+
+        var td = document.createElement("TD")
+
+        var td1 = document.createElement("TD")
+        var inp1 = document.createElement("input")
+        inp1.type = "text"
+        inp1.name = "title"
+        inp1.id = "title"
+        inp1.className ="form-control"
+        td1.appendChild(inp1)
+
+        var td2 = document.createElement("TD")
+        var inp2 = document.createElement("input")
+        inp2.type = "text"
+        inp2.name = "seryznost"
+        inp2.id = "seryznost"
+        inp2.className ="form-control"
+        td2.appendChild(inp2)
+
+        var td3 = document.createElement("TD")
+        var inp3 = document.createElement("input")
+        inp3.type = "text"
+        inp3.name = "veroyt"
+        inp3.id = "veroyt"
+        inp3.className ="form-control"
+        td3.appendChild(inp3)
+
+        var td4 = document.createElement("TD")
+        var inp4 = document.createElement("textarea")
+        //inp4.type = "text"
+        inp4.name = "koment"
+        inp4.id = "koment"
+        inp4.className ="form-control"
+        td4.appendChild(inp4)
+
+        row.appendChild(td);
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        row.appendChild(td4);
+        tbody.appendChild(row);
+      }
+</script>
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+<li class="header">Проекты</li>  
+		  
+        <li class="treeview">
+          <a href="#">
+            <i class="ti-palette"></i>
+            <span>Настройки</span>
+            <span class="pull-right-container">
+              <i class="fa fa-caret-down pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+
+           
+            <li><a href="{% url 'glavarp:oper' pk=projects.id %}"><i class="fa fa-circle-thin"></i>Опер план </a></li>
+            <li><a href="{% url 'projects:pok' pk=projects.id %}"><i class="fa fa-circle-thin"></i>Показатели </a></li>
+          </ul>
+</li>
+
+{% endblock %}
+
+<!-- Основной контент -->
+{% block page_contecst %}
+ 
+
+
+
+<div class="">
+    <div class="box">
+      <div class="box-header with-border">
+        <h4 class="box-title">Паспорт проекта</h4>
+        <ul class="box-controls pull-right">
+          
+          <li><a class="box-btn-slide"  href="#"></a></li>	
+          
+        </ul>
+      </div>
+      
+      <div class="box-body">
+          <div class="row">
+          <div class="col-xl-6 col-12">	
+          
+
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <tbody>
+                  <tr>
+                    <th>Название проекта:</th>
+                    <td> {{ projects.title }}</td>
+                  </tr>
+                  <tr>
+                    <th>Заказчик:</th>
+                    <td> 
+                      {% if comp.title != '-' %}
+                      <a href="{% url 'resurses:companicontacts' pk=comp.id %} ">{{ comp.title}}</a>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  <tr>
+                      <th>Тип проекта:</th>
+                      <td> {{ projects.tipdogovora }} </td>
+                  </tr>
+                  <tr>
+                      <th>Внедряемая система:</th>
+                      <td>{% for u in projects.products.all %}  {{ u.title }} {% empty %} -  {% endfor %}</td>
+                  </tr>
+                  <tr>
+                      <th>Дата начала:</th>
+                      <td>{{ projects.id|datastartitm }}</td>
+                  </tr>
+                  <tr>
+                      <th>Дата конца:</th>
+                      <td>{{ projects.id|datastopitm }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+ 
+          </div>
+          <div class="col-xl-6 col-12">
+
+              <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <tbody>
+                    <tr>
+                      <th>Договор:</th>
+                      <td> {{ projects.nomerdogovora }}</td>
+                    </tr>
+                    <tr>
+                      <th>Бюжет проекта:</th>
+                      <td>{{ projects.prisepr }} ₽</td>
+                    </tr>
+                    <tr>
+                        <th> Бюджет затрат: </th>
+                        <td>{{ projects.prisezatrat }} ₽</td>
+                    </tr>
+                    <tr>
+                        <th>Руководитель проекта:</th>
+                        <td> {{ projects.rpproecta }} </td>
+                    </tr>
+                    <tr>
+                        <th>Плановый процент завершения:</th>
+                        <td>{{ projects.id|prozentplan }} %  {{ projects.id|PROZ:"PROECT" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Процент завершения:</th>
+                        <td>{{ projects.id|prozentpo }} %</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+  <div class="">
+      <div class="box">
+        
+        <!-- /.box-header -->
+        <div class="box-body">
+          <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#zadatcha" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">Опер план</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#doc" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Документация</span></a> </li>
+      <li class="nav-item"> <a onclick="Selectname()"  class="nav-link" data-toggle="tab" href="#team" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Команда</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prise" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Стоимость</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#risc" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Риски</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#problem" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Проблемы</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#otshet" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Отчет</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#info" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Показатели</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#cost" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Затраты</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#zada" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Задачи </span></a> </li>
+      <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#nastrioki" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span class="hidden-xs-down">Настройки </span></a> </li>
+
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content tabcontent-border">
+      <!-- ОПЕРЕРАТИВНЫЙ ПЛАН  -->
+      <div class="tab-pane active" id="zadatcha" role="tabpanel">
+        <div class="pad">
+            <div class="box-header">
+
+                <h4 class="box-title">Оперативный план </h4>
+                <div class="box-controls pull-right">
+                  <div class="">
+                   
+                        <!-- {% url 'projects:operplan' pk=projects.id %} -->
+                      <a href="{% url 'projects:operplan' pk=projects.id %}"  class="btn btn-outline btn-secondary mb-3" > Изменить </a>
+                    
+                    </div>
+                </div>
+                </div>
+            <form action="" method="post">
+                {% csrf_token %} 
+                <input type="hidden" name="prov" value="zadatcha">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <thead class="thead-light">
+                      <tr>
+                          <th width='6'>№</th>
+                          <th width='190' >Пункт плана</th>
+                          
+                          <th>План начала </th>
+                          <th>План конца </th>
+                          <th>План % </th>
+                          <th>Факт % </th>
+                          
+                       </tr>
+                      </thead>
+                      <tbody>
+                      {% for it in itap  %}
+                      <tr>
+                          <td width='6'> </td>
+                          <td>  <strong> {{ it.title}}</strong> </td>
+                          
+                          <td> {{ it.datastart|date:"d.m.Y" }} </td>
+                          <td> {{ it.datastop|date:"d.m.Y"  }}</td>
+                          <td> {{ it.id|PROZ:"ITAP" }} </td>
+                          <td> -- % </td>
+                         
+                      </tr>
+                      {% for itmm in zadat %}
+                          {% if itmm.itap.title == it.title %}
+                          <tr>
+                                  <td width='6'>{{ itmm.level }} </td>
+                                  <td> &nbsp;&nbsp;&nbsp;&nbsp;  {{ itmm.title }} </td>
+                                  
+                                  <td> {{ itmm.data|date:"d.m.Y" }} </td>
+                                  <td> {{ itmm.dataend|date:"d.m.Y"  }}</td>
+                                  <td> {{ itmm.id|docdhey }} </td>
+                                  <td>
+                                    {% if itmm.id|LEVL == "1"  %}
+                                            {{ itmm.id|LEVLdat }} 
+                                    {% else %}
+                                  <input type="hidden" name="itmm" value="{{ itmm.id }}">
+                                  <select name="prozentviponenia" class="form-control select2" value="{{ itmm.prozes }}"> 
+                                      <option value="{{ itmm.prozes }}"> {{ itmm.prozes }} </option>
+                                      <option value="0%">0%</option>
+                                      <option value="10%">10%</option>
+                                      <option value="20%">20%</option>
+                                      <option value="30%">30%</option>
+                                      <option value="50%">50%</option>
+                                      <option value="60%">60%</option>
+                                      <option value="70%">70%</option>
+                                      <option value="80%">80%</option>
+                                      <option value="90%">90%</option>
+                                      <option value="100%">100%</option>
+                                  </select>  
+                                  
+                                  {% endif %}
+                                  </td> 
+                                   </tr>
+  
+                          {% endif %}
+                      {% endfor %}
+                      {% endfor %}
+                    </tbody>
+                    </table>
+                  </div>
+                  <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+            </form>
+        </div>
+      </div>
+      <!-- ОТЧЕТНЫЕ ДОКУМЕНТЫ  -->
+      <div class="tab-pane pad" id="doc" role="tabpanel">
+        <div class="">
+            <div class="box-header">
+                <h4 class="box-title">Документы по Проекту</h4>
+                </div>
+            <form action="" method="post">
+                {% csrf_token %} 
+                <input type="hidden" name="prov" value="doc">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead class="thead-light">
+                      <tr>
+                          <th width='6'>№</th>
+                          <th width='90' >Этап</th>
+                          <th>Наименование документа</th>
+                          <th>Плановая Дата</th>
+                          <th>Статус</th>
+                          <th> Файл</th>
+                       </tr>
+                      </thead>
+                    </table>
+                    {% for it in itap  %}
+                    <table class="table table-hover" id = "{{it.id}}" >
+                      <tbody id = "{{it.id}}">
+                      <tr id ='myTable8' width="100%">
+                        <th width='6'></th>
+                        <th >{{ it.title}}  </th>  
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <button onclick="addRowdoc('{{it.id}}');return false;" class="btn btn-sm btn-primary"> Добавить строку</button>
+                        </th>
+                        <th></th>
+                        
+                      </tr>
+                      {% for itmm in docs %}
+                          {% if itmm.itap.title == it.title %}
+                          <tr>
+                            <th> </th>
+                            <th> <input type="hidden" name="idold" value="{{ itmm.id }}"> </th>
+                            
+                            <th><input type="text" name="titleold" class="form-control select2" value="{{itmm.title}}">  </th>
+                            <th><input type="text" name="plandataold" size="10" value="{{ itmm.data|date:"d.m.Y" }}" class="form-control" > </th>
+                            <th> 
+                            <select name="statusdocold" class="form-control select2" > 
+                              <option value="{{itmm.status}}">{{itmm.status}}</option>
+                              <option value="В работе">В работе</option>
+                              <option value="Не начат">Не начат</option>
+                              <option value="Разработан">Разработан</option>
+                              <option value="Подписан">Подписан</option>
+                            </select>  
+                            </th>
+                            <th>Файл</th>
+                        </tr>
+
+                          
+                          {% endif %}
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                    {% endfor %}
+                      
+                    
+                  </div>
+                  <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+            </form>
+        </div>
+      </div>
+      <!-- КОМАНДА -->
+      <div class="tab-pane pad" id="team" role="tabpanel">
+          
+        <form action="" method="post">
+            {% csrf_token %}   
+          <input type="hidden" name="prov" value="team">
+
+          <div class="box-header">
+
+              <h4 class="box-title">Команда проекта </h4>
+              <div class="box-controls pull-right">
+                <div class="">
+                 <button class="btn btn-sm btn-primary" type="button" alt="default" data-toggle="modal" data-target="#ollcontacts"> Добавить сотрудника </button>
+                <!--   <a href="{% url 'resurses:myworkers' pk=projects.id %}" class="btn btn-sm btn-primary"> Изменить  </a>
+                   <button onclick="addRow2('myTable2');return false;" class="btn btn-sm btn-primary"> Добавить строку</button>-->
+                </div>
+              </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="table-responsive">
+
+                  <table class="table table-hover mb-0" id="myTable2">
+                    <thead>
+                    <tr>
+                      <th scope="col">№</th>
+                      <th >Убрать</th>
+                      <th scope="col">ФИО</th>
+                    
+                      <th>
+                        
+                        <select  onchange="Selectname()" onfocus="Selectname()"    id='slectvalueind' class="form-control" > 
+                          {% for value in komadamodel %}
+                          <option value="ind{{ value.id }}">{{ value.title }}</option>    
+                          {% endfor %}
+                        </select>
+      
+                      </th>
+                      
+                      <th> Текущий месяц </th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable2">
+                    {% for sd in komand %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>  <a href="{% url 'projects:del_sort_form' pk=projects.id cot=sd.index  %}" >  <img src="{% static "projects/icon3.png" %}" width="15" height="15" alt="Удалить" > </a> </td>
+                      <td>{{ sd.title }} <br> {{ sd.doljnost }}</td>
+      
+                      {% for value in komadamodel %}
+                      <td id ='ind{{ value.id }}' style="display:none;"> {% my_tag sd.index value.id projects.id %}%</td>
+                      {% endfor %}
+      
+                      <td> 
+                        
+                        {% checmyresors projects.id sd.index  as prod %}
+                        {% if prod != 'non' %}
+                        <input type="hidden" name="checid" value="{{ projects.id }}?{{ sd.index }}">
+                        <select class="form-control select2"  name="proz"> 
+                          <option value="{{ prod }}">{{  prod }}%</option>
+                          <option value="0">0%</option>
+                          <option value="10">10%</option>
+                          <option value="20">20%</option>
+                          <option value="30">30%</option>
+                          <option value="40">40%</option>
+                          <option value="50">50%</option>
+                          <option value="60">60%</option>
+                          <option value="70">70%</option>
+                          <option value="80">80%</option>
+                          <option value="90">90%</option>
+                          <option value="100">100%</option>
+                        </select>   
+      
+                        {% endif %}  
+                      </td>
+                      </td>     
+                    </tr>
+                    {% endfor %}
+       
+                    </tbody>
+                  </table>
+                </div>
+         
+
+           <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+        </div>
+      </form>     	
+      </div>
+      <!-- СТОИМОСТЬ  -->
+      <div class="tab-pane pad" id="prise" role="tabpanel">
+          <form  method="post">
+              {% csrf_token %}   
+             <input type="hidden" name="prov" value="prise">
+  
+            <div class="box-header">
+  
+                <h4 class="box-title">Оплата по проекту   </h4>
+                <div class="box-controls pull-right">
+                  
+                </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover" >
+                <thead>
+                <tr>
+                  <th scope="col">Этап </th>
+                  <th scope="col">Общая стоимость  </th>
+                  <th scope="col">Аванс  </th>
+                  <th scope="col">Ожидаем оплату</th>
+                  <th scope="col"> Статус </th>
+                </tr>
+                </thead>
+                <tbody >
+                    
+                {% for it in mone  %}
+                <tr>
+                    <th > {{ it.itap.title }}  <input type="hidden" name="idd" value="{{ it.id }}"></th>
+                    
+                    <th > <input type="text" name="obshay" value="{{ it.title }}" class="form-control" >   </th>
+                    <th ><input type="text" name="avanse"  value="{{ it.avanse }}" class="form-control" >  </th>
+                    <th ><input type="text" name="ozhidaem" size="10" value="{{ it.data|date:"d.m.Y" }}" class="form-control" > </th>
+                    
+                    <th > <select name="stasuss" class="form-control select2" value="{{ it.status }}"> 
+                        <option value="{{ it.status }}"> {{ it.status }}</option>
+                        <option value="Оплачен">Оплачен</option>
+                        <option value="Ожидаем оплату">Ожидаем оплату</option>
+                        <option value="Аванс оплачен">Аванс оплачен</option>
+                        
+                    </select>  </th>
+                </tr>
+                {% endfor %}
+   
+                </tbody>
+              </table>
+            </div>
+            <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+          </div>
+        </form>     	
+      </div>
+      <!-- РИСК  -->
+      <div class="tab-pane pad" id="risc" role="tabpanel">
+            <div class="box-header">
+  
+                <h4 class="box-title">Риски  </h4>
+                <div class="box-controls pull-right">
+                  <div class="">
+                      <button onclick="addRowme('myTable5');return false;" class="btn btn-sm btn-primary"> Добавить строку</button>
+                  </div>
+                </div>
+                </div>
+              <form action="" method="post">
+              {% csrf_token %}   
+            <input type="hidden" name="prov" value="risc">  
+                <!-- /.box-header -->
+                <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0" id="myTable5">
+                <thead>
+                <tr>
+                  <th scope="col"> </th>
+                  <th scope="col">Риски</th>
+                  <th scope="col">Серьезность</th>
+                  <th scope="col">Вероятность</th>
+                  <th scope="col">Комментарий </th>
+                </tr>
+                </thead>
+                <tbody id="myTable5">
+                  
+                  {% for hh in riskss %}
+                  <tr>
+                  <th > <input type="hidden" name="iddd" id="iddd"   value="{{ hh.id }}" > </th>
+                  <th ><input type="text" name="titlee" id="titlee"  class="form-control" value="{{ hh.title }} " ></th>
+                  <th >
+                      <select name="serios" id="serios" value="{{ hh.serios }}" class="form-control select2"> 
+                          <option value="{{ hh.serios }}" >{{ hh.serios }}</option>
+                          <option value="Умеренная">Умеренная</option>
+                          <option value="Высокая">Высокая</option>
+                          <option value="Низкая">Низкая</option>
+                          <option value="Незначительная">Незначительная</option>
+                          
+                      </select>   
+                  </th>
+                  <th >
+                      <select name="status" id="status" value="{{ hh.status }}" class="form-control select2"> 
+                          <option value="{{ hh.status }} " >{{ hh.status }} </option>
+                          <option value="Высокаяе">Высокая</option>
+                          <option value="Средняя">Средняя</option>
+                          <option value="Низкая">Низкая</option>
+                          <option value="Выполнен">Выполнен</option>
+                      </select>
+                  </th>
+                  <th ><textarea type="text" class="form-control"  name = 'komente' onload="textAreaAdjust(this)" spellcheck="true"  >{{ hh.koment }}</textarea> </th>
+                  </tr>
+                  {% endfor %}
+                
+                </tbody>
+              </table>
+            </div>
+            <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+          </div>
+        </form> 
+      </div>
+      <!-- ПРОБЛЕМА  -->
+      <div class="tab-pane pad" id="problem" role="tabpanel">
+          
+  
+            <div class="box-header">
+  
+                <h4 class="box-title">Проблемы  </h4>
+                <div class="box-controls pull-right">
+                  <div class="">
+                      <button onclick="addRowme('myTable6');return false;" class="btn btn-sm btn-primary"> Добавить строку</button>
+                  </div>
+                </div>
+                </div>
+                <form action="" method="post">
+              {% csrf_token %}   
+            <input type="hidden" name="prov" value="problem">
+                <!-- /.box-header -->
+                <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0" id="myTable6">
+                <thead>
+                <tr>
+                  <th scope="col"> </th>
+                  <th scope="col">Проблема </th>
+                  <th scope="col">Серьезность</th>
+                  <th scope="col">Статус </th>
+                  <th scope="col">Комментарий </th>
+                </tr>
+                </thead>
+                <tbody id='myTable6'>
+                 
+                    {% for hh in prob %}
+                     <tr>
+                    <th > <input type="hidden" name="iddd" id="iddd"   value="{{ hh.id }}" ></th>
+                    <th ><input type="text" name="titlee" id="titlee"  class="form-control" value="{{ hh.title }} " ></th>
+                    <th >
+                        <select name="serios" id="serios" value="{{ hh.serios }}" class="form-control select2"> 
+                            <option value="{{ hh.serios }}" >{{ hh.serios }}</option>
+                            <option value="Умеренная">Умеренная</option>
+                            <option value="Высокая">Высокая</option>
+                            <option value="Низкая">Низкая</option>
+                            <option value="Незначительная">Незначительная</option>
+                        </select>   
+                    </th>
+                    <th >
+                        <select name="status" id="status" value="{{ hh.status }}" class="form-control select2"> 
+                            <option value="{{ hh.status }} " >{{ hh.status }} </option>
+                            <option value="В работе">В работе</option>
+                            <option value="Не начат">Не начат</option>
+                            <option value="Выполнен">Выполнен</option>
+                        </select>
+                    </th>
+                    <th ><textarea type="text" class="form-control"  name = 'komente' onload="textAreaAdjust(this)" spellcheck="true"  >{{ hh.koment }}</textarea> </th>
+                  </tr>
+                    {% endfor %}
+   
+                </tbody>
+              </table>
+            </div>
+            <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+          </div>
+        </form>    
+      </div>
+      <!-- ОТЧЕТ  -->
+      <div class="tab-pane pad" id="otshet" role="tabpanel">
+        <div class="box-header">
+  
+          <h4 class="box-title">Отчет по проекту</h4>
+          <div class="box-controls pull-right">
+            <div class="">
+                <button type="button" alt="default" data-toggle="modal" data-target="#historiof" class="btn btn-outline btn-secondary"> История</button>
+            </div>
+          </div>
+          </div>
+          <div class="box-body">
+        <form action="" method="post">
+          <div class="table-responsive">
+          
+              {% csrf_token %}   
+          <input type="hidden" name="prov" value="otshet">
+
+          <table class="table align-items-center ">
+          <thead class="thead-light">
+          <tr>
+              <th scope="col" width="30">Этап</th>
+              <th scope="col">Дата завершения</th>
+              <th scope="col">Акт </th>
+              <th scope="col">Оплата </th>
+              <th scope="col">Комментарий</th>
+          </tr>
+              </thead>
+              <tbody>
+          {% for itms in itap|dictsort:"id" %}
+          <tr>         
+              <td> {{ itms.title }} <br>{{ itms.itapnaim|truncatechars:50 }} <input type="hidden" name="idit" value="{{ itms.id }}">    </td> 
+              <td> {{ itms.datastop|date:"d.m.Y"  }}</td> 
+              <td> 
+                  <select name="act" id="act{{ forloop.counter }}" value="{{ itms.act }}" class="form-control select2"> 
+                      <option value="{{ itms.act}}">{{ itms.act }}</option>
+                      <option value="В работе">В работе</option>
+                      <option value="Подписан">Подписан</option>
+                      <option value="Сформирован">Сформирован</option>
+                      <option value="Ожидаем">Ожидаем</option>
+                      <option value="Не начат">Не начат</option>
+                  </select>
+                  
+              </td>
+              <td> 
+                  <select name="oplata" id="it{{ itms.id }}"  onchange="mifync('{{ itms.id }}')" class="form-control select2"> 
+                      <option value="{{ itms.oplata }}" >{{ itms.oplata }}</option>
+                      <option value="В работе">В работе</option>
+                      <option value="Задолженность">Задолженность</option>
+                      <option value="Оплачен">Оплачен</option>
+                      <option value="Ожидаем">Ожидаем</option>
+                      <option value="Не начат">Не начат</option>
+                  </select>    
+              </td>
+              <td> 
+                <!-- onclick="textAreaAdjust(this)" spellcheck="true" id = 'textar' -->
+                  <textarea type="text" class="form-control" name = 'komentrp' style="height: 150px">{{ itms.komentrp }}</textarea>
+                  {% if itms.komentstep %}
+                  <br>Комментарий Ирины Степановой: 
+                          <br> {{ itms.komentstep }} 
+                  {% endif %}
+                  {% if itms.oplata == "Задолженность" %}
+                  <input type="text"  id='input-{{ itms.id }}'  class="form-control" placeholder="Задолженность" value="{{ itms.zadolkjnost }}" name ='zadolkjnost' style="display: block;" >
+                  {% else %}
+                  <input type="text" id='input-{{ itms.id }}' class="form-control" placeholder="Задолженность" value="{{ itms.zadolkjnost }}" name ='zadolkjnost' style="display: none;"  >
+                  {% endif %}
+              </td>     
+          </tr>  
+       {% endfor %}
+      </tbody>
+       </table>
+      
+        </div>
+       <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+      </form>
+      </div>
+      </div>
+      <!-- Показатели по проекту  -->
+      <div class="tab-pane pad" id="info" role="tabpanel">
+          <div class="">
+              <div class="box-header with-border">
+                <h4 class="box-title">Общая информация по проекту</h4>
+                <ul class="box-controls pull-right">
+
+                </ul>
+              </div>
+              
+              <div class="box-body">
+                  <div class="row">
+                  <div class="col-xl-6 col-12">	
+
+                    <div class="table-responsive">
+                      <table class="table table-hover mb-0">
+                        <tbody>
+                          <tr>
+                          <th> Бюджет затрат (BAC)   </th>
+                          <td> {{ projects.prisezatrat }} </td>
+                        </tr>
+                          <tr>
+                            <th>Запланированный объем (PV) </th>
+                            <td> {{projects.id|DATT:'PV'}} </td>
+                          </tr>
+                          <tr>
+                            <th> Фактическая стоимость работ  (AC) </th>
+                            <td> {{ projects.id|costzatrat }} </td>
+                          </tr>
+                        
+                        
+                        <tr>
+                          <th> Запланированная стоимость фактически выполенных работ (EV) </th>
+                          <td> {{projects.id|DATT:'EV'}}  </td>
+                        </tr>
+                        
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+       
+                </div>
+                <div class="col-xl-6 col-12">
+      
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <tbody>
+ 
+                          <tr>
+                            <th> Укладываемся ли в сроки (SPI)  </th>
+                            <td> {{projects.id|DATT:'SPI'}} </td>
+                          </tr>
+                          <tr>
+                            <th> Требуемая Производительность (TCPI)  </th>
+                            <td> {{projects.id|DATT:'TCPI'}} </td>
+                          </tr>
+                          <tr>
+                            <th> Требуемое колличесво денег для завершения проекта (ETC)  </th>
+                            <td> {{projects.id|DATT:'ETC'}} </td>
+                          </tr>
+                          <tr>
+                          <th> Отклонения по бюджету (СV)  </th>
+                          <td> {{projects.id|DATT:'CV'}} </td>
+                        </tr>
+                        <tr>
+                          <th> Отклонения по срокам бюджета (SV)  </th>
+                          <td> {{projects.id|DATT:'SV'}} </td>
+                        </tr> 
+                        <tr>
+                          <th> Процент выполения работ  (PC)  </th>
+                          <td> {{projects.id|DATT:'PC'}} % </td>
+                        </tr> 
+                        
+                          </tbody>
+                        </table>
+                      </div>
+                    
+                </div>
+                </div>
+              </div>
+              
+        
+            </div>
+      </div>
+      <!-- Затраты   -->
+      <div class="tab-pane pad" id="cost" role="tabpanel">
+          
+  
+          <div class="box-header">
+
+              <h4 class="box-title">Затраты  </h4>
+              <div class="box-controls pull-right">
+                <div class="">
+                    
+                </div>
+              </div>
+              </div>
+            <form action="" method="post">
+            {% csrf_token %}   
+          <input type="hidden" name="prov" value="cost">  
+              <!-- /.box-header -->
+              <div class="box-body">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" >
+              <thead>
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">Период</th>
+                <th scope="col">Общие затраты</th>
+                
+              </tr>
+              </thead>
+              <tbody >
+                
+                {% for hh in cost %}
+                <tr>
+                <td >{{ forloop.counter }}  </td>
+                <td > {{ hh.title }} </td>
+                <td > {{ hh.serios }} </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th >{{ forloop.counter }}  </th>
+                    <th > <input class="form-control" type="text" name="title" > </th>
+                    <th > <input class="form-control" type="text" name="serios"> </th>
+                  </tr>
+                  <tr>
+                      <th >ИТОГ:  </th>
+                      <th >  </th>
+                      
+                      <th > {{projects.id|costzatrat}} </th>
+                      </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+        </div>
+      </form> 
+    </div>
+    <!-- Задачи  -->
+    <div class="tab-pane pad" id="zada" role="tabpanel">
+      <div class="box-header">
+          <h4 class="box-title">Задачи по проекту  </h4>
+          <div class="box-controls pull-right">
+            <div class="">
+              </div>
+          </div>
+          </div>
+                  
+              <div class="table-responsive">
+                <table class="table table-hover mb-0" >
+                  <thead>
+                    <tr>
+                      <th width="2%"> Статус </th>
+                      <th width="10%"> Проект </th>
+                      <th width="60%"> Задача  </th>
+                      <th width="15%"> Приоритет </th>
+                      <th width="8%"> Ответственный </th>
+                      <th width="5%"> Срок исполнения </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+              {% for elem in zada %}
+              {% if elem.chec != 'checked' %}
+                  <tr>
+                  <td width="2%">
+                    
+                  </td>
+                  <td> {{ elem.projects.title }} </td>
+                  <td>
+                    
+                    <a class="mailbox-subject" href="{% url 'resurses:myplans' %}" data-toggle="modal"> <b>{{elem.title}}</b> <br> {{ elem.zada }} </a>
+                  </td>
+                  <td>
+                  {% if elem.prior == 'Низкий' %}
+                  <span class="label label-success">Низкий</span>
+                   {% elif elem.prior  == 'Средний' %}   
+                   <span class="label label-warning">Средний</span>
+                   {% elif elem.prior  == 'Высокий' %}   
+                   <span class="label label-danger">Высокий</span>
+                    
+                  {% endif %}
+                  </td>
+                  <td class="mailbox-attachment"> {{ elem.otvet }} </td>
+                  <td class="mailbox-date">{{ elem.srok }}</td>
+                  </tr>
+                  
+              {% endif %}
+              {% endfor %}
+            </tbody>
+            </table>
+            </div>  
+            
+      </div>
+    <!--  Настройки  -->
+    <div class="tab-pane pad" id="nastrioki" role="tabpanel"> 
+      <div class="box-header with-border">
+        <h4 class="box-title">Паспорт проекта</h4>
+        <ul class="box-controls pull-right">
+          
+          <li><a class="box-btn-slide"  href="#"></a></li>	
+          
+        </ul>
+      </div>
+<form action="" method="post">
+    {% csrf_token %}  
+    <input type="hidden" name="prov" value="nastroikios">
+      <div class="box-body">
+          <div class="row">
+          <div class="col-xl-6 col-12">	
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <tbody>
+                  <tr>
+                    <th>Название проекта:</th>
+                    <td> {{ projects.title }}</td>
+                  </tr>
+                  <tr>
+                    <th> Руководитель проекта: </th>
+                    <td>
+                      <select name="rpproecta" class="form-control" > 
+                        <option value="{{ projects.rpproecta }}">{{ projects.rpproecta }}</option>
+                        {% for us in users %}
+                        <option value="{{ us.first_name }}">{{ us.first_name }}</option>
+                        {% endfor %}  
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> Внедряемая система: </th>
+                    <td> 
+                      <div class="input-group input-group">
+                        <input type="text" disabled class="form-control" value="{% for u in projects.products.all %}  {{ u.title }} {% empty %} -  {% endfor %}">  
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-success"  alt="default" data-toggle="modal" data-target="#products">+</button>
+                            </span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> Бюджет затрат: </th>
+                    <td> <input type="text" name="prisezatrat" value="{{ projects.prisezatrat }}" class="form-control"> </td>
+                  </tr>
+                  <tr>
+                    <th> Статус проекта: </th>
+                    <td> 
+                      <select name="activedog" class="form-control" > 
+                        <option value="{{ projects.activedog }}">{{ projects.activedog }}</option>
+                        <option value="В работе">В работе</option>
+                        <option value="Завершен">Завершен</option>        
+                        <option value="Приостановлен">Приостановлен</option>              
+                      </select>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+ 
+          </div>
+          <div class="col-xl-6 col-12">
+
+              <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <tbody>
+                    <tr>
+                      <th>Договор:</th>
+                      <td> <input type="text"  value="{{ projects.nomerdogovora }}" name = 'nomerdogovora' class="form-control"> </td>
+                 </td>
+                    </tr>
+                    <tr>
+                      <th> Заказчик:</th>
+                      <td> 
+                        <div class="input-group input-group">
+                          <select name="zakazchic" class="form-control" >
+                          <option value="{{ projects.compani }}">{{ comp.title }}</option>
+                          {% for i in compa  %}
+                          <option value="{{ i.id }}">{{ i.title }}</option>
+                          {% endfor %}
+                        </select> 
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-success "  alt="default" data-toggle="modal" data-target="#newcomp">+</button>
+                              </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th> Тип проекта: </th>
+                      <td> 
+                        <select name="tipdogovora" class="form-control" > 
+                          <option value="{{ projects.tipdogovora }}">{{ projects.tipdogovora }}</option>
+                          <option value="Внедрение">Внедрение</option>
+                          <option value="Методологическое сопровождение">Методологическое сопровождение</option>
+                          <option value="Методологическое сопровождение(А)">Методологическое сопровождение(А)</option>
+                          <option value="Техническое сопровождение">Техническое сопровождение</option>
+                          <option value="Развитие">Развитие</option>
+                          <option value="Обследование">Обследование</option>
+                          <option value="Разработка (ОКР)">Разработка (ОКР)</option>
+                          <option value="НИР">НИР</option>
+                          <option value="Контроллинг">Контроллинг</option>
+                          <option value="Внутренний проект (MES)">Внутренний проект (MES)</option>
+                          <option value="Внутренний проект (EAM)">Внутренний проект (EAM)</option>       
+                          <option value="Внутренний проект (ERP)">Внутренний проект (ERP)</option>               
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Бюжет проекта:</th>
+                      <td> <input type="text" name="prisepr" value="{{ projects.prisepr }}" class="form-control"> </td>
+                    </tr>
+                    
+  
+                    </tbody>
+                  </table>
+                </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-body">
+        <div class="row">
+        <div class="col-12">	
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <td>Этап</td> <td>Наименование Этапа</td> <td>Дата начала </td><td>Дата конца</td>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for i in itap %}
+                <tr>
+                  <td> <input type="text" name="itaptitle" value="{{ i.title }}"class="form-control"> <input type="hidden" name="itid" value="{{i.id}}"></td>
+                  <td> <input type="text" name="itapnaim" value="{{ i.itapnaim }}" class="form-control"> </td>
+                  <td> <input type="date" name="datastart" value="{{ i.datastart|date:"Y-m-d" }}" class="form-control"> </td>
+                  <td> <input type="date" name="datastop" value="{{ i.datastop|date:"Y-m-d" }}" class="form-control">  </td>
+                </tr>
+                {% endfor %}
+                
+                <tr>
+                  <td colspan="3"> Добавить новый Этап  </td>
+                </tr>
+                <tr>
+                  <td> <input type="text" name="titlenew"  class="form-control"> </td>
+                  <td> <input type="text" name="itapnaimnew"  class="form-control"> </td>
+                  <td> <input type="date" name="datastartnew" class="form-control" ></td>
+                  <td> <input type="date" name="datastopnew" class="form-control"  >  </td>
+              
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+      <input type="hidden" name="form" value="oldcompani">
+      <input type="submit" value="Сохранить" class="btn btn-lg btn-primary btn-block"> 
+    </div>
+  </form>
+
+    </div>
+
+
+      </div>
+          </div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+ <!--  ПОИСК СОТРУДНИКА  -->
+ 
+    <div class="col-lg-6 col-12">
+		  <div id ='ollcontacts' class="modal fade bs-example-modal-lg show" aria-modal="true" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"  aria-hidden="true" style="display: none;">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myLargeModalLabel"> Перечень сотрудников </h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          </div>
+          <div class="modal-body">
+          <div class="form-group">
+            <form action="" method="post"> 
+              {% csrf_token %} 
+            <input type="hidden" name="prov" value="searshcotrud">
+            <input class="form-control" placeholder="Найти:" name="s">
+            <input type="submit" hidden> 
+          </form>
+            </div>
+          
+          <form action="" method="post">
+            {% csrf_token %} 
+            <input type="hidden" name="prov" value="adcontact">
+					
+						<div class="table-responsive">
+              <table class="table table-hover mb-0" id="myTable2">
+                <thead>
+                  <tr>
+                    <th> </th>
+                    <th scope="col">№</th>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col">Отдел</th>
+                  </tr>
+                
+                </thead>
+                <tbody id="myTable2">
+                {% for sd in contac %}
+                <tr>
+                  <td> <label class="containerdert" width="10px">
+                    <input type="checkbox" name='addcontsct' value="{{sd.index}}" >
+                    <span class="checkmarkdert"></span>
+                  </label> </td>
+                  <td> {{ forloop.counter }} </td>
+                  <td> {{ sd.title }} </td>
+                  <td> {{ sd.doljnost }} </td>
+                  <td> {{ sd.ondel.title }} </td>
+                </tr>
+                {% endfor %}
+   
+                </tbody>
+              </table>
+            </div>
+					</div>
+					<div class="modal-footer">
+            <input type="submit" value="Сохранить " class="btn btn-success">
+            <div class="pull-right">
+              <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+             
+                  </div>
+        </form>
+        </div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+	  	</div>
+      </div>
+<!-- История  -->
+      <div class="col-lg-6 col-12">
+        <div id='historiof' class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myLargeModalLabel"> История  </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+              <div class="timeline timeline-single-column timeline-single-full-column">
+                {% for i in histori %}
+              <div class="timeline-item">
+                <div class="timeline-point">
+                  <i class="fa fa-star"></i>
+                </div>
+                <div class="timeline-event">
+                  <div class="timeline-heading">
+                    <h4 class="timeline-title"> {{ i.title }} </h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p style="white-space: pre-line">{{ i.oldkomentrp }} </p>
+                  </div>
+                  <div class="timeline-footer">
+                    <p class="text-right">{{ i.name }} От: {{ i.created|date:"d.m.Y" }}</p>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+             </div>   
+            </div>
+            <div class="modal-footer">
+              
+              <div class="pull-right">
+                <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+              </div>
+            </div>
+         
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+        </div>
+        </div>   
+
+
+
+      <div class="col-lg-6 col-12">
+        <div id='newcomp' class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myLargeModalLabel"> Добавить новое предприятие </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form action="" method="post">
+              {% csrf_token %} 
+              <input type="hidden" name="prov" value="newcompani">
+            <div class="modal-body">
+              
+                <div class="form-group">
+                <input class="form-control" placeholder="Название предприятия:" name="title">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Форма собственности:" name="otvet">
+                </div>
+                  
+            </div>
+            <div class="modal-footer">
+              <input type="submit" value="Сохранить " class="btn btn-success">
+              <div class="pull-right">
+                <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+              </div>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+        </div>
+        </div>   
+
+        <div class="col-4">
+          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id ='products' aria-hidden="true" style="display: none;">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel"> Продукты  </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+              <form action="" method="post">
+                {% csrf_token %} 
+                <input type="hidden" name="prov" value="products">
+              <div class="modal-body">
+                
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0" id="myTable2">
+                    <thead>
+                      <tr>
+                        <th> </th>
+                        <th scope="col">№</th>
+                        <th scope="col">Продукт</th>
+                      </tr>
+                    
+                    </thead>
+                    <tbody id="myTable2">
+                    {% for sd in prod %}
+                    <tr>
+                      <td> <label class="containerdert" width="10px">
+                        <input type="checkbox" name='addcontsct' value="{{sd.id}}" >
+                        <span class="checkmarkdert"></span>
+                      </label> </td>
+                      <td> {{ forloop.counter }} </td>
+                      <td> {{ sd.title }} </td>
+                    </tr>
+                    {% endfor %}
+       
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <input type="submit" value="Сохранить " class="btn btn-success">
+                <div class="pull-right">
+                  <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+                      </div>
+              </div>
+            </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+          </div>
+          </div>  
+
+{% endblock %}
+
+
+
+
+
+{% block page_staticjsandcss %}
+
+<script>
+  function mifync(id) {
+      if ($("#it" + id).val() === "Задолженность") {
+          $("#input-" + id)[0].style["display"] = "block";
+      }
+      else {
+          $("#input-" + id)[0].style["display"] = "none";
+      }
+  }
+</script>
+
+<script>
+  let fin;
+  fin = 'ind1'
+  function Selectname(){
+    id = $('#slectvalueind :selected').val();
+    let hhjjkg = document.querySelectorAll("#"+id);
+    
+    let hig = document.querySelectorAll("#"+fin);
+    for(let el of hig) {
+      el.style = 'display:none';
+    }
+
+    for(let el of hhjjkg) {
+      el.style = 'display: table-cell';
+    }
+    fin = id
+  };
+</script>
+
+<script>
+$("#{{ idollcontacts }}").modal('show');
+</script>
+
+{% endblock %}
+
+

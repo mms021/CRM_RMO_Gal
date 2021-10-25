@@ -1,0 +1,123 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> Ресурсы </title>
+{% endblock %}
+
+
+{% load static %}
+{% load resors %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="">
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"> Ресурсы по моим проектам </h4> 
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xl-12 col-12">	
+          <div class="clearfix">
+            <a href="{% url 'resurses:soglosov' %}" class="btn btn-secondary mb-5">  Указать расход ресурсов</a>
+            
+            <button type="button" hidden class="btn btn-secondary mb-5">Согласовать ресурсы </button>
+
+            <div class="btn-group mb-5">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> Ресурсы по отделам  </button>
+              <div class="dropdown-menu">
+                {% for i in otd|otdelfilf:user.first_name %}
+              <a class="dropdown-item" href="{% url 'resurses:otdelcontacts' pk=i.id %}">{{i.title}}</a> 
+                {% endfor %}
+              </div>
+            </div>
+            {% if user.is_staff %}
+            <div class="btn-group mb-5">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Отделы</button>
+              <div class="dropdown-menu">
+                {% for i in otd %}
+              <a class="dropdown-item" href="{% url 'resurses:otdelcontacts' pk=i.id %}">{{i.title}}</a> 
+                {% endfor %}
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'resurses:resorsmatcofall'  %}">Все команды</a>
+              </div>
+            </div>
+            {% endif %}
+            <div class="btn-group mb-5">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Отчетный период </button>
+              <div class="dropdown-menu">
+                {% for i in per %}
+              <a class="dropdown-item" href="{% url 'resurses:rezalt' pk=i.id %}">{{i.title}}</a> 
+                {% endfor %}
+             
+              
+              </div>
+            </div>
+            <!---->					
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% for i in prog %} 
+  <div class="box">
+    <div class="box-header with-border">
+      <h4 class="box-title"> <a href="{% url 'resurses:myworkers' pk=i.id %}">{{ i.title }}</a> </h4> 
+      <ul class="box-controls pull-right"> 
+        <li><a class="box-btn-slide"  href="#"></a></li>	
+      </ul>
+    </div>
+    <div class="box-body">
+        <div class="row">
+        <div class="col-xl-12 col-12">	
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <tbody>
+                <tr>
+                  <th>№</th>
+                  <th>ФИО</th>
+                  <th>Должность</th>
+                  <th>Отдел</th>
+                  
+                </tr>
+                {% for res in cont|sotrudnik:i.id %}
+                <tr>
+                  <td> {{ forloop.counter }} </td>
+                  <td> {{ res.title }} </td>
+                  <td> {{ res.doljnost }} </td>
+                  <td> {{ res.ondel.title }} </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}  
+</div>
+
+
+
+{% endblock %}
+
+{% block page_staticjsandcss %}
+
+{% endblock %}

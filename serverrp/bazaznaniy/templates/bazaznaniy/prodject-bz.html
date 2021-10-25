@@ -1,0 +1,183 @@
+{% extends 'index.html' %}
+
+<!-- титул  -->
+{% block page_title %}
+<title> База знаний </title>
+{% endblock %}
+
+
+{% load static %}
+{% load pasport %}
+{% load crispy_forms_tags %}
+<!-- Стили -->
+{% block page_styles %}
+
+
+{% endblock %}
+
+<!-- Слайдер -->
+{% block page_slader %}
+
+{% endblock %}
+
+{% block page_contecst %}
+
+<div class="col-12">
+        <div class="box">
+         <div class="box-header">
+          <h4 class="box-title"> <a href="{% url 'bazaznaniy:catall'  %}">База знаний</a> </h4>
+
+
+        
+            
+            <div class="pull-right" >
+                <button type="button" class="btn btn-secondary "  alt="default" data-toggle="modal" data-target="#products"> Добавить документ </button>
+              <!-- 
+            <form action="" method="post">
+              {% csrf_token %}    
+              <input type="hidden"  name="rore" value="dor">
+            <div class="lookup lookup-circle lookup-right">
+              <input type="text" name="s"><input type="submit" hidden> 
+            </div> 
+            <input type="submit" hidden>
+            </form>
+            -->
+            </div>
+          </div>
+        </div>
+      </div>
+         
+             
+
+<div class="row">     
+    <div class="col-xl-4 col-12">
+      <div class="box">
+      <div class="box-header">
+        <h4 class="box-title">Фаза Инициолизации</h4>
+      </div>
+      <div class="box-body">
+        <ol>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='СЗ' %}">Служебная записка</a> </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ПНП' %}">Приказ о назначении пресейл-команды</a></li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ПО' %}">Проектный отчет</a>  </li>
+        </ol>
+      </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-12">
+      <div class="box">
+      <div class="box-header">
+        <h4 class="box-title">Фаза Планирования</h4>
+      </div>
+      <div class="box-body">
+        <ol>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='НДА' %}">NDA</a></li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ПРС' %}">Пресейл</a> </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ЭО' %}">Экспресс-обслеование</a> </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ПРЕ' %}">Презентации</a>  </li>
+        </ol>
+      </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-12">
+      <div class="box">
+      <div class="box-header">
+        <h4 class="box-title">Фаза Исполнения </h4>
+      </div>
+      <div class="box-body">
+        <ol>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ОРГ' %}">Организацонные предприятия</a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ОБС' %}">Обследование</a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ТЗ' %}">Техническое задание</a>   </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ПР' %}">Проектное решение</a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='СД' %}">Сбор данных</a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='РЕА' %}">Реализация</a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ОЭ' %}">Опытная эксплуотация</a> </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ТИР' %}">Тиражирование</a>  </li>
+        </ol>
+      </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-12">
+      <div class="box">
+      <div class="box-header">
+        <h4 class="box-title">Фаза Завершения </h4>
+      </div>
+      <div class="box-body">
+        <ol>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ПЗП' %}">Презентация завершения проекта </a>   </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='АЗ' %}">Аналитическая записка </a> </li>
+          
+        </ol>
+      </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-12">
+      <div class="box">
+      <div class="box-header">
+        <h4 class="box-title">Фаза Мониторинг и контроль  </h4>
+      </div>
+      <div class="box-body">
+        <ol>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ШСА' %}">Шаблон статус отчета </a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ШП' %}">Шаблон протокотла </a>   </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='РР' %}">Реестр рисков  </a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ШПГ' %}">Шаблон  Плана-гарфика преокта  </a> </li>
+        </ol>
+      </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-12">
+      <div class="box">
+      <div class="box-header">
+        <h4 class="box-title">Прочее</h4>
+      </div>
+      <div class="box-body">
+        <ol>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ШПИ' %}">Шаблон писем </a>  </li>
+          <li> <a href="{% url 'bazaznaniy:categori' pk='ПРОЧ' %}">Прочее </a>  </li>
+        </ol>
+      </div>
+      </div>
+    </div>
+</div>
+          
+        
+
+
+<div class="col-lg-6 col-12">
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id ='products' aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <form enctype="multipart/form-data" method="post" class="tab-wizard vertical wizard-circle">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel"> Добавить документ  </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          {% csrf_token %}   
+          {{ form|crispy }}
+      </div>
+      <div class="modal-footer">
+        <input type="submit" value="Сохранить" class="btn  btn-primary "> 
+        <div class="pull-right">
+          <button type="reset" class="btn btn-danger" class="close" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть </button>
+        </div>
+      </div>
+    </form> 
+    </div>
+  </div>
+  </div>
+  </div>  
+
+
+{% endblock %}
+
+
+
+
+{% block page_staticjsandcss %}
+
+ 
+ 
+ {% endblock %}
