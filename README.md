@@ -1,4 +1,5 @@
 # CRM_RMO_Gal
 
+Первый проект на Django.
 
-first project
+Требуется загрузить Bootstrap3 в папку projects/staric/
